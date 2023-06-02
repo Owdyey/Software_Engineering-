@@ -1,0 +1,17 @@
+-need to complete-
+- password encryption
+- check if prisoner is available
+- logic where the visitor will be divided into 15 per batch
+-r	
+- reports where you can print the statistic of visits per month
+reports where you can print the statistic of visits WITHIN the month
+
+
+good moral time allowance 
+-list of events 
+-event duration 
+-prisoner's good moral time allowance status
+-prisoner's availability page
+-reports where 
+- page where you can modify the status of the visito
+
