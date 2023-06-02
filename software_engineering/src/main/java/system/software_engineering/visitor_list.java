@@ -45,6 +45,7 @@ public class visitor_list extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         dateChooser = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -64,7 +65,7 @@ public class visitor_list extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Visitor List");
+        jLabel9.setText("Visit Reports");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -117,7 +118,7 @@ public class visitor_list extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
         jButton6.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("back");
+        jButton6.setText("Back");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -146,6 +147,12 @@ public class visitor_list extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 90, 40));
+
+        jButton7.setBackground(new java.awt.Color(103, 146, 137));
+        jButton7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Print");
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 450, 90, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -287,6 +294,7 @@ public class visitor_list extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

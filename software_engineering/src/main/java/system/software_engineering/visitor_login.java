@@ -75,7 +75,7 @@ public class visitor_login extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("back");
+        jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -86,7 +86,7 @@ public class visitor_login extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(103, 146, 137));
         jButton2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("next");
+        jButton2.setText("Next");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

@@ -193,7 +193,7 @@ public class batch_schedule extends javax.swing.JFrame {
     
     
     private void showData() {
-    String sql2 = "UPDATE visitor SET time_out = ? WHERE visitor_id = ?";
+
     String sql = "SELECT * FROM visitor WHERE date_of_visit = ?";
     
     try {
@@ -206,31 +206,17 @@ public class batch_schedule extends javax.swing.JFrame {
 
         while (resultSet.next()) {
             // Get the original time from the database
-            String originalTime = resultSet.getString("time_of_visit");
-
-            // Add 15 minutes to the original time
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-            LocalTime localTime = LocalTime.parse(originalTime, formatter);
-            LocalTime newTime = localTime.plusMinutes(15);
-
-            // Format the new time as a string in the desired format
-            String formattedTime = newTime.format(formatter);
+            
 
             // Create the row data with the updated time
             Object[] rowData = {
                 resultSet.getString("first_name") + " " + resultSet.getString("surname"),
                 resultSet.getString("inmate_first_name") + " " + resultSet.getString("inmate_surname"),
                 resultSet.getString("time_of_visit"),
-                formattedTime
+                resultSet.getString("time_out")
             };
 
-            tableModel.addRow(rowData);
-
-            // Update the 'time_out' column in the database with the new time
-            PreparedStatement statement2 = sql_connect.db_connect().prepareStatement(sql2);
-            statement2.setString(1, formattedTime);
-            statement2.setInt(2, resultSet.getInt("visitor_id"));
-            statement2.executeUpdate();
+            tableModel.addRow(rowData);            
         }
     } catch (SQLException ex) {
         System.out.println(ex);

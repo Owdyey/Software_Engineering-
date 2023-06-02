@@ -48,7 +48,6 @@ public class autoFill extends javax.swing.JFrame {
         ageTxt = new javax.swing.JTextField();
         contactTxt = new javax.swing.JTextField();
         addressTxt = new javax.swing.JTextField();
-        genderTxt = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -72,6 +71,7 @@ public class autoFill extends javax.swing.JFrame {
         middlenameTxt = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         inmateSurnameTxt = new javax.swing.JTextField();
+        genderTxt = new javax.swing.JComboBox<>();
 
         buttonGroup1.add(Family);
         buttonGroup1.add(Friend);
@@ -146,11 +146,6 @@ public class autoFill extends javax.swing.JFrame {
         addressTxt.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(addressTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, 220, 40));
 
-        genderTxt.setBackground(new java.awt.Color(255, 250, 202));
-        genderTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        genderTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(genderTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 70, 40));
-
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("First Name :");
@@ -195,24 +190,24 @@ public class autoFill extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(103, 146, 137));
         jButton2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("submit");
+        jButton2.setText("Submit");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 430, 80, 38));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 430, 90, 38));
 
         jButton3.setBackground(new java.awt.Color(103, 146, 137));
         jButton3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("see list");
+        jButton3.setText("See List");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, 80, 38));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, 90, 38));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -303,6 +298,13 @@ public class autoFill extends javax.swing.JFrame {
         inmateSurnameTxt.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(inmateSurnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 280, 230, 40));
 
+        genderTxt.setBackground(new java.awt.Color(255, 250, 202));
+        genderTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        genderTxt.setForeground(new java.awt.Color(0, 0, 0));
+        genderTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
+        genderTxt.setSelectedIndex(-1);
+        jPanel1.add(genderTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, 40));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -355,93 +357,100 @@ public class autoFill extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         LocalTime currentTime = LocalTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a");
         String visitTime = currentTime.format(format);
         
-        String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit,time_of_visit, relationship, inmate_first_name, inmate_surname) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
-checkPrisonersAvailability pStatus = new checkPrisonersAvailability();
-                
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-String formattedDate = dateFormat.format(new Date());
+        String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit,time_of_visit, time_out, relationship, inmate_first_name, inmate_surname) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        checkPrisonersAvailability pStatus = new checkPrisonersAvailability();
 
-String selected = "";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = dateFormat.format(new Date());
 
-if (Family.isSelected()) {
-    selected = "Family";
-} else if (Relative.isSelected()) {
-    selected = "Relative";
-} else if (Acquaintance.isSelected()) {
-    selected = "Acquaintance";
-} else if (Friend.isSelected()) {
-    selected = "Friend";
-}
+        String selected = "";
 
-variable.firstName = firstnameTxt.getText();
-variable.surname = surnameTxt.getText();
-variable.middleName = middlenameTxt.getText();
-variable.gender = genderTxt.getText();
-variable.age = ageTxt.getText();
-variable.address = addressTxt.getText();
-variable.contactNo = contactTxt.getText();
-variable.inmateFname = inmateFnameTxt.getText();
-variable.inmateSurname = inmateSurnameTxt.getText();
-variable.middleName = middlenameTxt.getText();
-
-
-if (firstnameTxt.getText().isBlank() || surnameTxt.getText().isBlank() || ageTxt.getText().isBlank()
-    || genderTxt.getText().isBlank() || addressTxt.getText().isBlank() || contactTxt.getText().isBlank()
-    || inmateFnameTxt.getText().isBlank() || selected.isEmpty()) {
-    
-    JOptionPane.showMessageDialog(frame, "Make sure you fill all the fields!");
-}else if(!pStatus.exists()){
-    JOptionPane.showMessageDialog(frame, "Prisoner Does't Exist!");
-} 
-
-else if(!pStatus.check()) {
-    JOptionPane.showMessageDialog(frame, "Visitation is not permitted for the prisoner!");
-} else {
-    try {
-        PreparedStatement statement = sql_connect.db_connect().prepareStatement(sqlSyntax);
-
-        statement.setString(1, variable.firstName.toUpperCase());
-        statement.setString(2, variable.middleName.toUpperCase());
-        statement.setString(3, variable.surname.toUpperCase());
-        statement.setString(4, variable.gender.toUpperCase());
-        statement.setString(5, variable.age);
-        statement.setString(6, variable.contactNo);
-        statement.setString(7, variable.address.toUpperCase());
-        statement.setString(8, formattedDate);
-        statement.setString(9, visitTime);
-        statement.setString(10, selected.toUpperCase());
-        statement.setString(11, variable.inmateFname.toUpperCase());
-        statement.setString(12, variable.inmateSurname.toUpperCase());
-
-        statement.executeUpdate();
-        JOptionPane.showMessageDialog(frame, "Information added");
-
-        firstnameTxt.setText("");
-        surnameTxt.setText("");
-        middlenameTxt.setText("");
-        ageTxt.setText("");
-        genderTxt.setText("");
-        contactTxt.setText("");
-        addressTxt.setText("");
-        buttonGroup1.clearSelection();
-        inmateFnameTxt.setText("");
-        inmateSurnameTxt.setText("");
-        
-        System.out.println(pStatus.check());
-        }catch (SQLException ex) {
-            System.out.print(ex);
+        if (Family.isSelected()) {
+            selected = "Family";
+        } else if (Relative.isSelected()) {
+            selected = "Relative";
+        } else if (Acquaintance.isSelected()) {
+            selected = "Acquaintance";
+        } else if (Friend.isSelected()) {
+            selected = "Friend";
         }
+
+        variable.firstName = firstnameTxt.getText();
+        variable.surname = surnameTxt.getText();
+        variable.middleName = middlenameTxt.getText();
+        variable.gender = (String) genderTxt.getSelectedItem();
+        variable.age = ageTxt.getText();
+        variable.address = addressTxt.getText();
+        variable.contactNo = contactTxt.getText();
+        variable.inmateFname = inmateFnameTxt.getText();
+        variable.inmateSurname = inmateSurnameTxt.getText();
+        variable.middleName = middlenameTxt.getText();
+
+        // Add 15 minutes to the original time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalTime localTime = LocalTime.parse(visitTime, formatter);
+        LocalTime newTime = localTime.plusMinutes(15);
+
+        // Format the new time as a string in the desired format
+        String formattedTime = newTime.format(formatter);
+        
+        if (firstnameTxt.getText().isBlank() || surnameTxt.getText().isBlank() || ageTxt.getText().isBlank()
+            || genderTxt.getSelectedItem().equals("")|| addressTxt.getText().isBlank() || contactTxt.getText().isBlank()
+            || inmateFnameTxt.getText().isBlank() || selected.isEmpty()) {
+
+            JOptionPane.showMessageDialog(frame, "Make sure you fill all the fields!");
+        }else if(!pStatus.exists()){
+            JOptionPane.showMessageDialog(frame, "Prisoner Does't Exist!");
+        } 
+
+        else if(!pStatus.check()) {
+            JOptionPane.showMessageDialog(frame, "Visitation is not permitted for the prisoner!");
+        } else {            
+            try {
+                PreparedStatement statement = sql_connect.db_connect().prepareStatement(sqlSyntax);
+
+                statement.setString(1, variable.firstName.toUpperCase());
+                statement.setString(2, variable.middleName.toUpperCase());
+                statement.setString(3, variable.surname.toUpperCase());
+                statement.setString(4, variable.gender.toUpperCase());
+                statement.setString(5, variable.age);
+                statement.setString(6, variable.contactNo);
+                statement.setString(7, variable.address.toUpperCase());
+                statement.setString(8, formattedDate);
+                statement.setString(9, visitTime);
+                statement.setString(10, formattedTime);
+                statement.setString(11, selected.toUpperCase());
+                statement.setString(12, variable.inmateFname.toUpperCase());
+                statement.setString(13, variable.inmateSurname.toUpperCase());
+
+                statement.executeUpdate();
+                JOptionPane.showMessageDialog(frame, "Information added");
+
+                firstnameTxt.setText("");
+                surnameTxt.setText("");
+                middlenameTxt.setText("");
+                ageTxt.setText("");
+                genderTxt.setSelectedItem(null);
+                contactTxt.setText("");
+                addressTxt.setText("");
+                buttonGroup1.clearSelection();
+                inmateFnameTxt.setText("");
+                inmateSurnameTxt.setText("");
+
+                }catch (SQLException ex) {
+                    System.out.print(ex);
+                }
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
     }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        visitor_list form = new visitor_list();
+        batch_schedule form = new batch_schedule();
         form.show(true);
         show(false);
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -460,7 +469,7 @@ else if(!pStatus.check()) {
             middlenameTxt.setText(variable.middleName);
             surnameTxt.setText(variable.surname);
             ageTxt.setText(variable.age);
-            genderTxt.setText(variable.gender);
+            genderTxt.setSelectedItem(variable.gender);
             contactTxt.setText(variable.contactNo);
             addressTxt.setText(variable.address);
         }      
@@ -511,7 +520,7 @@ else if(!pStatus.check()) {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField contactTxt;
     private javax.swing.JTextField firstnameTxt;
-    private javax.swing.JTextField genderTxt;
+    private javax.swing.JComboBox<String> genderTxt;
     private javax.swing.JTextField inmateFnameTxt;
     private javax.swing.JTextField inmateSurnameTxt;
     private javax.swing.JButton jButton1;
