@@ -124,7 +124,7 @@ public class login_form extends javax.swing.JFrame {
                     show(false);
                     
                 } else {
-                    JOptionPane.showMessageDialog(frame,"Invalid Username or Password!");
+                    JOptionPane.showMessageDialog(frame,"di na ako mahal");
                 }
             }
              
