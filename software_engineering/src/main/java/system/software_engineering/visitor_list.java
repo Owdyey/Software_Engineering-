@@ -86,14 +86,14 @@ public class visitor_list extends javax.swing.JFrame {
         dataTable.setForeground(new java.awt.Color(0, 0, 0));
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "In Mate to Visit", "Relationship", "Date of Visit"
+                "Name", "In Mate to Visit", "Relationship", "Date of Visit", "Time of Visit"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -193,7 +193,8 @@ public class visitor_list extends javax.swing.JFrame {
                     resultSet.getString("first_name") + " " + resultSet.getString("surname"),
                     resultSet.getString("inmate_first_name") + " " + resultSet.getString("inmate_surname"),
                     resultSet.getString("relationship"),
-                    resultSet.getDate("date_of_visit")
+                    resultSet.getDate("date_of_visit"),
+                    resultSet.getTime("time_of_visit")
                 };
                 tableModel.addRow(rowData);
             }
@@ -221,7 +222,8 @@ public class visitor_list extends javax.swing.JFrame {
                 resultSet.getString("first_name") + " " + resultSet.getString("surname"),
                 resultSet.getString("inmate_first_name") + " " + resultSet.getString("inmate_surname"),
                 resultSet.getString("relationship"),
-                resultSet.getDate("date_of_visit")
+                resultSet.getDate("date_of_visit"),
+                resultSet.getTime("time_of_visit")
             };
             tableModel.addRow(rowData);
             hasRecords = true; // Set the flag to true if there are any records

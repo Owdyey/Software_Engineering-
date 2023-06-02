@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -353,8 +355,12 @@ public class autoFill extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-             
-        String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit, relationship, inmate_first_name, inmate_surname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String visitTime = currentTime.format(format);
+        
+        String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit,time_of_visit, relationship, inmate_first_name, inmate_surname) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
 checkPrisonersAvailability pStatus = new checkPrisonersAvailability();
                 
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -383,6 +389,7 @@ variable.inmateFname = inmateFnameTxt.getText();
 variable.inmateSurname = inmateSurnameTxt.getText();
 variable.middleName = middlenameTxt.getText();
 
+
 if (firstnameTxt.getText().isBlank() || surnameTxt.getText().isBlank() || ageTxt.getText().isBlank()
     || genderTxt.getText().isBlank() || addressTxt.getText().isBlank() || contactTxt.getText().isBlank()
     || inmateFnameTxt.getText().isBlank() || selected.isEmpty()) {
@@ -407,9 +414,10 @@ else if(!pStatus.check()) {
         statement.setString(6, variable.contactNo);
         statement.setString(7, variable.address.toUpperCase());
         statement.setString(8, formattedDate);
-        statement.setString(9, selected.toUpperCase());
-        statement.setString(10, variable.inmateFname.toUpperCase());
-        statement.setString(11, variable.inmateSurname.toUpperCase());
+        statement.setString(9, visitTime);
+        statement.setString(10, selected.toUpperCase());
+        statement.setString(11, variable.inmateFname.toUpperCase());
+        statement.setString(12, variable.inmateSurname.toUpperCase());
 
         statement.executeUpdate();
         JOptionPane.showMessageDialog(frame, "Information added");

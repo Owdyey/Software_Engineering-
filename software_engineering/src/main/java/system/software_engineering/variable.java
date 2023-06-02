@@ -21,6 +21,7 @@ public class variable {
     public static String inmateFname;
     public static String middleName;
     public static String inmateSurname;
+    public static String timeOfVisit;
     
     public static String adminUsername;
     public static String adminPassword;
