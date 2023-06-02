@@ -101,10 +101,13 @@ public class visitor_list extends javax.swing.JFrame {
             }
         });
         dataTable.setMinimumSize(new java.awt.Dimension(225, 20));
+        dataTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(dataTable);
         if (dataTable.getColumnModel().getColumnCount() > 0) {
-            dataTable.getColumnModel().getColumn(0).setResizable(false);
-            dataTable.getColumnModel().getColumn(1).setResizable(false);
+            dataTable.getColumnModel().getColumn(0).setMinWidth(180);
+            dataTable.getColumnModel().getColumn(0).setMaxWidth(180);
+            dataTable.getColumnModel().getColumn(1).setMinWidth(180);
+            dataTable.getColumnModel().getColumn(1).setMaxWidth(180);
             dataTable.getColumnModel().getColumn(2).setResizable(false);
             dataTable.getColumnModel().getColumn(3).setResizable(false);
         }
@@ -194,7 +197,7 @@ public class visitor_list extends javax.swing.JFrame {
                     resultSet.getString("inmate_first_name") + " " + resultSet.getString("inmate_surname"),
                     resultSet.getString("relationship"),
                     resultSet.getDate("date_of_visit"),
-                    resultSet.getTime("time_of_visit")
+                    resultSet.getString("time_of_visit")
                 };
                 tableModel.addRow(rowData);
             }
@@ -223,7 +226,7 @@ public class visitor_list extends javax.swing.JFrame {
                 resultSet.getString("inmate_first_name") + " " + resultSet.getString("inmate_surname"),
                 resultSet.getString("relationship"),
                 resultSet.getDate("date_of_visit"),
-                resultSet.getTime("time_of_visit")
+                resultSet.getString("time_of_visit")
             };
             tableModel.addRow(rowData);
             hasRecords = true; // Set the flag to true if there are any records

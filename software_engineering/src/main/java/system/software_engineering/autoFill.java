@@ -357,7 +357,7 @@ public class autoFill extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
         LocalTime currentTime = LocalTime.now();
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a");
         String visitTime = currentTime.format(format);
         
         String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit,time_of_visit, relationship, inmate_first_name, inmate_surname) VALUES (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -400,7 +400,6 @@ if (firstnameTxt.getText().isBlank() || surnameTxt.getText().isBlank() || ageTxt
 } 
 
 else if(!pStatus.check()) {
-    System.out.println(pStatus.check());
     JOptionPane.showMessageDialog(frame, "Visitation is not permitted for the prisoner!");
 } else {
     try {
