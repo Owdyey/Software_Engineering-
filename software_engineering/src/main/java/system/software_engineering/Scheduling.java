@@ -34,6 +34,7 @@ public class Scheduling extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btnProfile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -89,7 +90,7 @@ public class Scheduling extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 200, 70));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 200, 60));
 
         jButton3.setBackground(new java.awt.Color(103, 146, 137));
         jButton3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -100,7 +101,7 @@ public class Scheduling extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 200, 70));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 310, 200, 60));
 
         jButton4.setBackground(new java.awt.Color(103, 146, 137));
         jButton4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -111,7 +112,18 @@ public class Scheduling extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 200, 70));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, 200, 60));
+
+        btnProfile.setBackground(new java.awt.Color(103, 146, 137));
+        btnProfile.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnProfile.setForeground(new java.awt.Color(255, 255, 255));
+        btnProfile.setText("Visitor Profiles");
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 380, 200, 60));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -142,6 +154,12 @@ public class Scheduling extends javax.swing.JFrame {
         form.show();
         show(false);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+        searchProfile form = new searchProfile();
+        form.show();
+        show(false);
+    }//GEN-LAST:event_btnProfileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +197,7 @@ public class Scheduling extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnProfile;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
