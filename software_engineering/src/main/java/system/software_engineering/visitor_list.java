@@ -4,14 +4,25 @@
  */
 package system.software_engineering;
 
+import static com.microsoft.schemas.office.excel.STObjectType.Enum.table;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Component;
 import java.awt.im.InputContext;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -151,8 +162,13 @@ public class visitor_list extends javax.swing.JFrame {
         jButton7.setBackground(new java.awt.Color(103, 146, 137));
         jButton7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Print");
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(611, 450, 90, 40));
+        jButton7.setText("Export Data");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(561, 450, 140, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -161,7 +177,7 @@ public class visitor_list extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void openWindow(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_openWindow
-        showDataFromDatabase();
+
     }//GEN-LAST:event_openWindow
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -182,36 +198,148 @@ public class visitor_list extends javax.swing.JFrame {
             Date selectedDate = new Date(dateChooser.getDate().getTime());
             showDataFromDatabaseWithDate(selectedDate);
         }else{
-            showDataFromDatabase();
+            JOptionPane.showMessageDialog(frame, "Choose date first",
+                       "Error!",
+                       JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void showDataFromDatabase() {
-        String sql = "SELECT * FROM visitor";
-        try {
-            PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-
-            DefaultTableModel tableModel = (DefaultTableModel) dataTable.getModel();
-
-            // Clear existing rows in the table model
-            tableModel.setRowCount(0);
-
-            while (resultSet.next()) {
-                Object[] rowData = {
-                    resultSet.getString("first_name") + " " + resultSet.getString("surname"),
-                    resultSet.getString("inmate_first_name") + " " + resultSet.getString("inmate_surname"),
-                    resultSet.getString("relationship"),
-                    resultSet.getDate("date_of_visit"),
-                    resultSet.getString("time_of_visit")
-                };
-                tableModel.addRow(rowData);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
+    Component frame;
+    
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String sql = "SELECT * FROM visitor where date_of_visit = ?";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(dateChooser.getDate());
+        PreparedStatement statement = null;
+        
+        boolean record = false;
+        
+        try{
+          statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
+          statement.setString(1,date);
+          ResultSet result = statement.executeQuery();
+          
+          
+          if(result.next()==true){
+                record = true;
+          }else{
+              record = false;
+          }
+          
+        }catch(SQLException e){
+            
         }
-    }
+        
+        if(!record){
+            JOptionPane.showMessageDialog(frame, "There's no record to export!",
+                       "Export Error",
+                       JOptionPane.ERROR_MESSAGE);
+        }else{
+            
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setDialogTitle("Save Excel File");
+        filechooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
+       
+       int userSelection = filechooser.showSaveDialog(frame);
+       if(userSelection == JFileChooser.APPROVE_OPTION){
+           String filePath = filechooser.getSelectedFile().getAbsolutePath();
+           if(!filePath.toLowerCase().endsWith(".csv")){
+               filePath += ".csv";
+           }
+           try(FileWriter writer = new FileWriter(filePath)){
+               //Write the excel data
+               writer.append("FIRST NAME");
+               writer.append(",");
+               writer.append("MIDDLE NAME");
+               writer.append(",");
+               writer.append("LAST NAME");
+               writer.append(",");
+               writer.append("SEX");
+               writer.append(",");
+               writer.append("AGE");
+               writer.append(",");
+               writer.append("CONTACT");
+               writer.append(",");
+               writer.append("ADDRESS");
+               writer.append(",");
+               writer.append("DATE OF VISIT");
+               writer.append(",");
+               writer.append("TIME OF VISIT");
+               writer.append(",");
+               writer.append("TIME OUT");
+               writer.append(",");
+               writer.append("RELATIONSHIP");
+               writer.append(",");
+               writer.append("INMATE FIRST NAME");
+               writer.append(",");
+               writer.append("INMATE LAST NAME");
+               writer.append("\n");
+                          
+               
+               
+               
+               
+               try{
+                   statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
+                   statement.setString(1,date);
+                   ResultSet result = statement.executeQuery();
+                   
+                   while(result.next()){
+                       writer.append(result.getString(2));
+                       writer.append(",");
+                       writer.append(result.getString(3));
+                       writer.append(",");
+                       writer.append(result.getString(4));
+                       writer.append(",");
+                       writer.append(result.getString(5));
+                       writer.append(",");
+                       writer.append(result.getString(6));
+                       writer.append(",");
+                       writer.append(result.getString(7));
+                       writer.append(",");
+                       writer.append(result.getString(8));
+                       writer.append(",");
+                       writer.append(result.getString(9));
+                       writer.append(",");
+                       writer.append(result.getString(10));
+                       writer.append(",");
+                       writer.append(result.getString(11));
+                       writer.append(",");
+                       writer.append(result.getString(12));
+                       writer.append(",");
+                       writer.append(result.getString(13));
+                       writer.append(",");
+                       writer.append(result.getString(14));
+                       writer.append(",");
+                       writer.append("\n");
+                   }
+               }catch(SQLException e){
+                   Logger.getLogger(visitor_list.class.getName()).log(Level.SEVERE, null, e);
+                   JOptionPane.showMessageDialog(frame, "Export error, please try again.",
+                       "Export Error",
+                       JOptionPane.ERROR_MESSAGE);
+               }
+               
+               writer.flush();
+               writer.close();
+               
+               JOptionPane.showMessageDialog(frame, "Excel file saved successfully",
+                       "Export Successful",
+                       JOptionPane.INFORMATION_MESSAGE);
+               
+           } catch (IOException ex) {
+               Logger.getLogger(visitor_list.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(frame, "Export error, please try again.",
+                       "Export Error",
+                       JOptionPane.ERROR_MESSAGE);
+           }
+           
+           
+        }}   
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    DefaultTableModel tableModel;
     
     private void showDataFromDatabaseWithDate(Date selectedDate) {
     String sql = "SELECT * FROM visitor WHERE date_of_visit = ?";
