@@ -10,6 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -157,12 +160,15 @@ public class listOfEvents extends javax.swing.JFrame {
     Component frame;
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        welcome_form form = new welcome_form();
+        goodTimeMoral form = new goodTimeMoral();
         form.show();
         show(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     String myMonth;
+    DefaultTableModel tableModel;
+    String desc;
+    String title;
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -176,29 +182,68 @@ public class listOfEvents extends javax.swing.JFrame {
             
             ResultSet resultSet = statement.executeQuery();
 
-            DefaultTableModel tableModel = (DefaultTableModel) eventTable.getModel();
+            tableModel = (DefaultTableModel) eventTable.getModel();
             tableModel.setRowCount(0);
             
+            
+            boolean hasData = false;
+            
             while (resultSet.next()) {
+                hasData = true;
+                
+                desc = resultSet.getString("event_desc");
+                
                 Object[] rowData = {
                 resultSet.getString("event_title"),
                 resultSet.getString("event_date"),
                 resultSet.getString("event_duration")
                 };
 
-                tableModel.addRow(rowData); 
+                tableModel.addRow(rowData);
+            }
+            eventTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                boolean showDialog = true;
+                
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    if (!e.getValueIsAdjusting() && showDialog) {
+                        showDialog = false;
+                        
+                        int selectedRow = eventTable.getSelectedRow();
+                        if (selectedRow != -1) { 
+                            String evTitle = eventTable.getValueAt(selectedRow, 0).toString();
+                            String date = eventTable.getValueAt(selectedRow, 1).toString();
+                            int duration = Integer.parseInt(eventTable.getValueAt(selectedRow, 2).toString());
+                            int hours = duration / 60;
+                            int mins = duration % 60;
+
+                            JOptionPane.showMessageDialog(null ,"Event Title: " + evTitle + "\n" +
+                                    "Description: " + desc + "\n\nDate: " + date + "\nDuration: " + hours + " hr/s and " + mins + " min/s", 
+                                    "Event Information", 
+                                    JOptionPane.INFORMATION_MESSAGE );
+                            showDialog = true;
+                        }
+                    }
+                }
+            });
+            
+            if(!hasData){
+                JOptionPane.showMessageDialog(null,
+                    "There is no event this month.",
+                    "No Event",
+                    JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
-                    "There's an error in the database!" + e,
+                    "There's an error in the database!",
                     "Database Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    
     private void btnAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEventActionPerformed
         addEvent form = new addEvent();
         form.show();

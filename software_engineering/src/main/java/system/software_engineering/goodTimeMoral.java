@@ -80,7 +80,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Logout");
+        jButton6.setText("Back");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -106,7 +106,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_login1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        login_form form = new login_form();
+        welcome_form form = new welcome_form();
         form.show();
         show(false);
     }//GEN-LAST:event_jButton6ActionPerformed
