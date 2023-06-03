@@ -4,6 +4,12 @@
  */
 package system.software_engineering;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author addie
@@ -26,21 +32,178 @@ public class searchPrisoner extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        firstnameTxt = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        surnameTxt = new javax.swing.JTextField();
+        id = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(0, 53, 84));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        firstnameTxt.setEditable(false);
+        firstnameTxt.setBackground(new java.awt.Color(255, 250, 202));
+        firstnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        firstnameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 220, 40));
+
+        jButton1.setBackground(new java.awt.Color(103, 146, 137));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 70, 30));
+
+        jButton2.setBackground(new java.awt.Color(103, 146, 137));
+        jButton2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Search");
+        jButton2.setToolTipText("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 120, 38));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\system\\images\\small_logo.png"));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 120, 140));
+
+        jPanel2.setBackground(new java.awt.Color(255, 250, 202));
+
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Search Prisoner Profile");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(262, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
+
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Surname :");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, -1, -1));
+
+        surnameTxt.setEditable(false);
+        surnameTxt.setBackground(new java.awt.Color(255, 250, 202));
+        surnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        surnameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(surnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 220, 40));
+
+        id.setBackground(new java.awt.Color(255, 250, 202));
+        id.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        id.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 220, 40));
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setText("Search ID :");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 80, 20));
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("First Name :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Scheduling form = new Scheduling();
+        form.show();
+        show(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String idNo = (String) id.getSelectedItem();
+        
+        String sql = "SELECT * FROM prisoners WHERE prisoner_no = ?";
+        
+        
+        try{
+            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
+            statement.setString(1, idNo);
+            
+            ResultSet result = statement.executeQuery();
+            
+            while(result.next()){
+                firstnameTxt.setText(result.getString("prisoner_first_name"));
+                surnameTxt.setText(result.getString("prisoner_surname"));
+            }
+            
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        DefaultComboBoxModel<String> models = new DefaultComboBoxModel<>();
+        
+        try{
+            String sql = "SELECT * FROM prisoners";
+            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+            
+            while(result.next()){
+                //String fullName = result.getString("prisoner_first_name") + " " + result.getString("prisoner_surname");
+                String id = result.getString("prisoner_no");
+                //String content = id + " | " + fullName;
+                
+                models.addElement(id);
+            }
+                    
+            id.setModel(models);
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database." + e,
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -78,5 +241,17 @@ public class searchPrisoner extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField firstnameTxt;
+    private javax.swing.JComboBox<String> id;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField surnameTxt;
     // End of variables declaration//GEN-END:variables
 }

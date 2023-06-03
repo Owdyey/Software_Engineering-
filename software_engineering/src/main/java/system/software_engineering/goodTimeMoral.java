@@ -46,10 +46,10 @@ public class goodTimeMoral extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 250, 202));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         jLabel8.setForeground(java.awt.Color.black);
-        jLabel8.setText("GMTA");
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 270, 110));
+        jLabel8.setText("Good Morale Time Allowance");
+        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 540, 110));
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
 
@@ -86,7 +86,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 460, -1, 30));
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, -1, 30));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -95,7 +95,9 @@ public class goodTimeMoral extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_goodMoral2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral2ActionPerformed
-        // TODO add your handling code here:
+        searchPrisoner form = new searchPrisoner();
+        form.show();
+        show(false);
     }//GEN-LAST:event_btn_goodMoral2ActionPerformed
 
     private void btn_login1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_login1ActionPerformed
