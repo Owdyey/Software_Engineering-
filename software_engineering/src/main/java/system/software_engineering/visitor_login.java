@@ -155,14 +155,14 @@ public class visitor_login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_firstnameTxtActionPerformed
 
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        
+
         String phrase = "SELECT * FROM visitor WHERE first_name = ? AND middle_name = ? AND surname = ?";
         variable.firstName = firstnameTxt.getText();
         variable.surname = surnameTxt.getText();
         variable.middleName = middlenameTxt.getText();
-        
+           
         try{
             PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(phrase);
             
@@ -172,26 +172,42 @@ public class visitor_login extends javax.swing.JFrame {
             
             ResultSet resultSet = statement.executeQuery();
             
-            if(resultSet.next()){
-                JOptionPane.showMessageDialog(frame,"Person's Information already Exist!");
-                autoFill autofill = new autoFill();
-                autofill.show();
-                show(false);
-                variable.age = resultSet.getString("age");
-                variable.address = resultSet.getString("address");
-                variable.gender = resultSet.getString("sex");
-                variable.contactNo = resultSet.getString("contact");
+            
+            if(firstnameTxt.getText().isBlank() || middlenameTxt.getText().isBlank() || surnameTxt.getText().isBlank()){
+                JOptionPane.showMessageDialog(frame,
+                        "Fields cannot be empty!",
+                        "Input Error",
+                        JOptionPane.ERROR_MESSAGE);
             }else{
-                JOptionPane.showMessageDialog(frame,"Person's Information DO NOT Exist!");
+                if(resultSet.next()){
+                    
+                    if(resultSet.getBoolean("isEligible") == true){
+                        autoFill autofill = new autoFill();
+                        autofill.show();
+                        show(false);
+                        variable.age = resultSet.getString("age");
+                        variable.address = resultSet.getString("address");
+                        variable.gender = resultSet.getString("sex");
+                        variable.contactNo = resultSet.getString("contact");
+                        variable.hasInfo = true;
+                }else{
+                    JOptionPane.showMessageDialog(frame,
+                        "The visitor is not eligible to visit a prisoner.",
+                        "Visit Error",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+                
+            }else{
                 variable.age = "";
                 variable.address = "";
                 variable.gender = "";
                 variable.contactNo = "";
-                
+
                 autoFill autofill = new autoFill();
                 autofill.show();
                 show(false);
-            }   
+            }
+            }
         }catch(SQLException ex){
             System.out.println(ex);
         }

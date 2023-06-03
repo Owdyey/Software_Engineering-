@@ -175,6 +175,14 @@ public class searchProfile extends javax.swing.JFrame {
                 variable.gender = resultSet.getString("sex");
                 variable.address = resultSet.getString("address");
                 variable.contactNo = resultSet.getString("contact");
+                
+                if(resultSet.getBoolean("isEligible") == true){
+                    variable.isEligible = "YES";
+                }else{
+                    variable.isEligible  ="NO";
+                }
+                
+                
                 visitorProfile form = new visitorProfile();
                 form.show();
                 show(false);

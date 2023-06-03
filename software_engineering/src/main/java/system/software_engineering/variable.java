@@ -22,6 +22,9 @@ public class variable {
     public static String middleName;
     public static String inmateSurname;
     public static String timeOfVisit;
+    public static String isEligible;
+    
+    public static boolean hasInfo = false;
     
     public static String adminUsername;
     public static String adminPassword;

@@ -5,8 +5,10 @@
 package system.software_engineering;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,7 +45,6 @@ public class visitorProfile extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -143,17 +144,6 @@ public class visitorProfile extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 70, 30));
 
-        jButton2.setBackground(new java.awt.Color(103, 146, 137));
-        jButton2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Submit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 360, 110, 38));
-
         editBtn.setBackground(new java.awt.Color(103, 146, 137));
         editBtn.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         editBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,7 +154,7 @@ public class visitorProfile extends javax.swing.JFrame {
                 editBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 360, 110, 38));
+        jPanel1.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 450, 90, 38));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\system\\images\\small_logo.png"));
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 120, 140));
@@ -214,7 +204,9 @@ public class visitorProfile extends javax.swing.JFrame {
         isEligible.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         isEligible.setForeground(new java.awt.Color(0, 0, 0));
         isEligible.setText("YES");
+        isEligible.setBorderPainted(false);
         isEligible.setEnabled(false);
+        isEligible.setFocusable(false);
         isEligible.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 isEligibleActionPerformed(evt);
@@ -237,20 +229,19 @@ public class visitorProfile extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_firstnameTxtActionPerformed
 
+    Component frame;
+
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         searchProfile form = new searchProfile();
         form.show();
         show(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    
     
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        
+        
         
         boolean isActive = editBtn.getText().equals("Save");
 
@@ -265,16 +256,47 @@ public class visitorProfile extends javax.swing.JFrame {
             addressTxt.setEditable(false);
             isEligible.setEnabled(false);
             
-            String sql = "UPDATE visitor SET first_name = ?, middle_name = ?, surname = ?, sex = ?, age = ?, contact = ?,"
-                    + "address = ?";
-            
-            try{
-            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-            
-            }catch(SQLException e){
-                
+            if(firstnameTxt.getText().isBlank() || middlenameTxt.getText().isBlank() || surnameTxt.getText().isBlank() ||
+            genderTxt.getSelectedItem().equals(null) || ageTxt.getText().isBlank() || contactTxt.getText().isBlank() ||
+            addressTxt.getText().isBlank()){
+            JOptionPane.showMessageDialog(frame,
+                    "Fields cannot be empty!",
+                    "Empty Fields",
+                    JOptionPane.ERROR_MESSAGE);
+            }else{
+                String sql = "UPDATE visitor SET first_name = ?, middle_name = ?, surname = ?, sex = ?, age = ?, contact = ?,"
+                        + "address = ?, isEligible = ?";
+
+                try{
+                    PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
+                    statement.setString(1, firstnameTxt.getText().toUpperCase());
+                    statement.setString(2, middlenameTxt.getText().toUpperCase());
+                    statement.setString(3, surnameTxt.getText().toUpperCase());
+                    statement.setString(4, (String) genderTxt.getSelectedItem());
+                    statement.setString(5, ageTxt.getText());
+                    statement.setString(6, contactTxt.getText());
+                    statement.setString(7, addressTxt.getText().toUpperCase());
+                    
+                    if (isEligible.getText().equals("YES")){
+                        statement.setBoolean(8, true);
+                    }else{
+                        statement.setBoolean(8, false);
+                    }
+
+                    statement.executeUpdate();
+
+                    JOptionPane.showMessageDialog(frame, 
+                            "Information updated successfully!",
+                            "Update Successful",
+                            JOptionPane.INFORMATION_MESSAGE);
+
+                }catch(SQLException e){
+                    JOptionPane.showMessageDialog(frame, 
+                            "There's an error in the database!",
+                            "Database Error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
             }
-            
             
             editBtn.setText("Edit");
         } else {
@@ -287,26 +309,21 @@ public class visitorProfile extends javax.swing.JFrame {
             contactTxt.setEditable(true);
             addressTxt.setEditable(true);
             isEligible.setEnabled(true);
-            
             editBtn.setText("Save");
         }
         
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(variable.firstName == "" && variable.middleName == "" && variable.surname == ""){
-            variable.firstName = firstnameTxt.getText();
-            variable.middleName = middlenameTxt.getText();
-            variable.surname = surnameTxt.getText();
-       }else{
-            firstnameTxt.setText(variable.firstName);
-            middlenameTxt.setText(variable.middleName);
-            surnameTxt.setText(variable.surname);
-            ageTxt.setText(variable.age);
-            genderTxt.setSelectedItem(variable.gender);
-            contactTxt.setText(variable.contactNo);
-            addressTxt.setText(variable.address);
-        }   
+        firstnameTxt.setText(variable.firstName);
+        middlenameTxt.setText(variable.middleName);
+        surnameTxt.setText(variable.surname);
+        ageTxt.setText(variable.age);
+        genderTxt.setSelectedItem(variable.gender);
+        contactTxt.setText(variable.contactNo);
+        addressTxt.setText(variable.address);
+        isEligible.setText(variable.isEligible);
+          
     }//GEN-LAST:event_formWindowOpened
 
     private void isEligibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isEligibleActionPerformed
@@ -369,7 +386,6 @@ public class visitorProfile extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> genderTxt;
     private javax.swing.JToggleButton isEligible;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

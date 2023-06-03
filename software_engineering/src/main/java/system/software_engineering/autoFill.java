@@ -56,7 +56,7 @@ public class autoFill extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        seeListBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -134,7 +134,7 @@ public class autoFill extends javax.swing.JFrame {
         ageTxt.setBackground(new java.awt.Color(255, 250, 202));
         ageTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         ageTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(ageTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 61, 40));
+        jPanel1.add(ageTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 30, 40));
 
         contactTxt.setBackground(new java.awt.Color(255, 250, 202));
         contactTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -174,7 +174,7 @@ public class autoFill extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Gender :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
         jButton1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -198,16 +198,16 @@ public class autoFill extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 430, 90, 38));
 
-        jButton3.setBackground(new java.awt.Color(103, 146, 137));
-        jButton3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("See List");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        seeListBtn.setBackground(new java.awt.Color(103, 146, 137));
+        seeListBtn.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        seeListBtn.setForeground(new java.awt.Color(255, 255, 255));
+        seeListBtn.setText("See List");
+        seeListBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                seeListBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, 90, 38));
+        jPanel1.add(seeListBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, 90, 38));
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -303,7 +303,7 @@ public class autoFill extends javax.swing.JFrame {
         genderTxt.setForeground(new java.awt.Color(0, 0, 0));
         genderTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
         genderTxt.setSelectedIndex(-1);
-        jPanel1.add(genderTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, -1, 40));
+        jPanel1.add(genderTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(236, 380, 100, 40));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -445,22 +445,33 @@ public class autoFill extends javax.swing.JFrame {
                 }catch (SQLException ex) {
                     System.out.print(ex);
                 }
-
+                
+            seeListBtn.setEnabled(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
     }
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void seeListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeListBtnActionPerformed
         batch_schedule form = new batch_schedule();
         form.show(true);
         show(false);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_seeListBtnActionPerformed
 
     private void FamilyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FamilyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_FamilyActionPerformed
 
     private void load(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_load
-       if(variable.firstName == "" && variable.middleName == "" && variable.surname == ""){
+        seeListBtn.setEnabled(false);
+        if(variable.hasInfo){
+            firstnameTxt.setEditable(false);
+            middlenameTxt.setEditable(false);
+            surnameTxt.setEditable(false);
+            ageTxt.setEditable(false);
+            genderTxt.setEnabled(false);
+            addressTxt.setEditable(false);
+            contactTxt.setEditable(false);
+        }
+        if(variable.firstName == "" && variable.middleName == "" && variable.surname == ""){
             variable.firstName = firstnameTxt.getText();
             variable.middleName = middlenameTxt.getText();
             variable.surname = surnameTxt.getText();
@@ -515,17 +526,16 @@ public class autoFill extends javax.swing.JFrame {
     private javax.swing.JRadioButton Family;
     private javax.swing.JRadioButton Friend;
     private javax.swing.JRadioButton Relative;
-    private javax.swing.JTextField addressTxt;
-    private javax.swing.JTextField ageTxt;
+    public static javax.swing.JTextField addressTxt;
+    public static javax.swing.JTextField ageTxt;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField contactTxt;
-    private javax.swing.JTextField firstnameTxt;
-    private javax.swing.JComboBox<String> genderTxt;
-    private javax.swing.JTextField inmateFnameTxt;
-    private javax.swing.JTextField inmateSurnameTxt;
+    public static javax.swing.JTextField contactTxt;
+    public static javax.swing.JTextField firstnameTxt;
+    public static javax.swing.JComboBox<String> genderTxt;
+    public static javax.swing.JTextField inmateFnameTxt;
+    public static javax.swing.JTextField inmateSurnameTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -544,7 +554,8 @@ public class autoFill extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField middlenameTxt;
-    private javax.swing.JTextField surnameTxt;
+    public static javax.swing.JTextField middlenameTxt;
+    private javax.swing.JButton seeListBtn;
+    public static javax.swing.JTextField surnameTxt;
     // End of variables declaration//GEN-END:variables
 }
