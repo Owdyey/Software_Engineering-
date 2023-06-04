@@ -23,6 +23,10 @@ public class variable {
     public static String inmateSurname;
     public static String timeOfVisit;
     public static String isEligible;
+    public static int remainingDays;
+    public static boolean isAvailable;
+    public static boolean isReady;
+    
     
     public static boolean hasInfo = false;
     

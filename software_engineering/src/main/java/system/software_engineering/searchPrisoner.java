@@ -41,8 +41,6 @@ public class searchPrisoner extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         surnameTxt = new javax.swing.JTextField();
-        id = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,11 +56,10 @@ public class searchPrisoner extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        firstnameTxt.setEditable(false);
         firstnameTxt.setBackground(new java.awt.Color(255, 250, 202));
         firstnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         firstnameTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 220, 40));
+        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 220, 40));
 
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -85,7 +82,7 @@ public class searchPrisoner extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 360, 120, 38));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 120, 38));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\system\\images\\small_logo.png"));
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 120, 140));
@@ -116,30 +113,18 @@ public class searchPrisoner extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Surname :");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, -1, -1));
 
-        surnameTxt.setEditable(false);
         surnameTxt.setBackground(new java.awt.Color(255, 250, 202));
         surnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         surnameTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(surnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 220, 40));
-
-        id.setBackground(new java.awt.Color(255, 250, 202));
-        id.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        id.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 220, 40));
-
-        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Search ID :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 80, 20));
+        jPanel1.add(surnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 220, 40));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("First Name :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, -1, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -148,28 +133,47 @@ public class searchPrisoner extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Scheduling form = new Scheduling();
+        goodTimeMoral form = new goodTimeMoral();
         form.show();
         show(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String idNo = (String) id.getSelectedItem();
         
-        String sql = "SELECT * FROM prisoners WHERE prisoner_no = ?";
+        String sql = "SELECT * FROM prisoners WHERE prisoner_first_name = ? AND prisoner_surname = ?";
         
-        
+        boolean hasData = false;
         try{
             PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-            statement.setString(1, idNo);
+            statement.setString(1, firstnameTxt.getText());
+            statement.setString(2, surnameTxt.getText());
             
             ResultSet result = statement.executeQuery();
             
+            
+            
             while(result.next()){
-                firstnameTxt.setText(result.getString("prisoner_first_name"));
-                surnameTxt.setText(result.getString("prisoner_surname"));
+                variable.firstName = result.getString("prisoner_first_name");
+                variable.surname = result.getString("prisoner_surname");
+                variable.age = result.getString("age");
+                variable.gender = result.getString("gender");
+                variable.isAvailable = result.getBoolean("isAvailable");
+                variable.remainingDays = result.getInt("gmta_status");
+                variable.isReady = result.getBoolean("is_ready");
+                
+                hasData = true;
             }
             
+            if(!hasData){
+                JOptionPane.showMessageDialog(null,
+                    "Prisoner not found.",
+                    "No Data",
+                    JOptionPane.WARNING_MESSAGE);
+            }else{
+                prisonerProfile form = new prisonerProfile();
+                form.show();
+                show(false);
+            }
             
         }catch(SQLException ex){
             JOptionPane.showMessageDialog(null,
@@ -181,28 +185,7 @@ public class searchPrisoner extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        DefaultComboBoxModel<String> models = new DefaultComboBoxModel<>();
         
-        try{
-            String sql = "SELECT * FROM prisoners";
-            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-            ResultSet result = statement.executeQuery();
-            
-            while(result.next()){
-                //String fullName = result.getString("prisoner_first_name") + " " + result.getString("prisoner_surname");
-                String id = result.getString("prisoner_no");
-                //String content = id + " | " + fullName;
-                
-                models.addElement(id);
-            }
-                    
-            id.setModel(models);
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(null,
-                    "There's a problem in the database." + e,
-                    "Database Error",
-                    JOptionPane.WARNING_MESSAGE);
-        }
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -242,11 +225,9 @@ public class searchPrisoner extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField firstnameTxt;
-    private javax.swing.JComboBox<String> id;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
