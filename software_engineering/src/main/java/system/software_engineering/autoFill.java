@@ -362,7 +362,7 @@ public class autoFill extends javax.swing.JFrame {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("hh:mm a");
         String visitTime = currentTime.format(format);
         
-        String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit,time_of_visit, time_out, relationship, inmate_first_name, inmate_surname) VALUES (?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlSyntax = "INSERT INTO visitor (first_name, middle_name, surname, sex, age, contact, address, date_of_visit,time_of_visit, time_out, relationship, inmate_first_name, inmate_surname,isEligible) VALUES (?, ?,?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
         checkPrisonersAvailability pStatus = new checkPrisonersAvailability();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -406,6 +406,8 @@ public class autoFill extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(frame, "Make sure you fill all the fields!");
         }else if(!pStatus.exists()){
             JOptionPane.showMessageDialog(frame, "Prisoner Does't Exist!");
+            inmateFnameTxt.setText("");
+            inmateSurnameTxt.setText("");
         } 
 
         else if(!pStatus.check()) {
@@ -427,6 +429,7 @@ public class autoFill extends javax.swing.JFrame {
                 statement.setString(11, selected.toUpperCase());
                 statement.setString(12, variable.inmateFname.toUpperCase());
                 statement.setString(13, variable.inmateSurname.toUpperCase());
+                statement.setBoolean(14,true);
 
                 statement.executeUpdate();
                 JOptionPane.showMessageDialog(frame, "Information added");

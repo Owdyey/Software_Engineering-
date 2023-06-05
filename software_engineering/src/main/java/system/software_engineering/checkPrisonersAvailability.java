@@ -62,4 +62,28 @@ public class checkPrisonersAvailability {
         return result;
     }
     
+    
+//    public boolean isEligible(){
+//     String sql = "SELECT isEligible FROM visitor WHERE first_name = ? AND middle_name = ? AND surname = ?";
+//     boolean result = true;
+//     try{
+//          PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
+//          
+//          statement.setString(1, variable.firstName);
+//          statement.setString(2,variable.middleName);
+//          statement.setString(3,variable.surname);
+//          
+//          ResultSet resultSet = statement.executeQuery();
+//          
+//          if(resultSet.next()){
+//              result = resultSet.getBoolean("isEligible");
+//          }
+//          resultSet.close();
+//          statement.close();
+//          
+//     }catch(SQLException e){
+//         System.out.println(e);
+//     }
+//     return result;
+//    }
 }
