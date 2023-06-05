@@ -35,6 +35,7 @@ public class variable {
     public static String pGender;
     public static int pGmta;
 
+    public static String hashedPasscode;
 
     
     public static boolean hasInfo = false;

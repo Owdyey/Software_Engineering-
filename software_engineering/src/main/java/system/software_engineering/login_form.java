@@ -6,10 +6,13 @@ package system.software_engineering;
 
 import com.mysql.cj.protocol.Resultset;
 import java.awt.Component;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -101,67 +104,106 @@ public class login_form extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-
-        String sql = "SELECT * FROM login_credentials WHERE usernames = ? AND passwords = ?";
+        
+        //String sql = "INSERT INTO login_credentials(usernames,passwords) VALUES (?,?)";
+        
+//        try{
+//            PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
+//            statement.setString(1, txt_username.getText());
+//            statement.setString(2, adminPassEncrypt.encryptPassword(txt_password.getText()));
+//            
+//            statement.executeUpdate();
+//            
+//            JOptionPane.showMessageDialog(frame, "added!");
+//        }catch(SQLException e){
+//            System.out.print(e);
+//            
+//        } catch (NoSuchAlgorithmException ex) {
+//            Logger.getLogger(login_form.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+        
+        
+        String sql = "SELECT passwords FROM login_credentials WHERE usernames = ?";
+        variable.adminPassword = txt_password.getText();
+        variable.adminUsername = txt_username.getText();
+        
+        
         try{
-            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-            variable.adminPassword = txt_password.getText();
-            variable.adminUsername = txt_username.getText();
+            
+            PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
             
             statement.setString(1,variable.adminUsername);
-            statement.setString(2,variable.adminPassword);
             
-           
             ResultSet resultSet = statement.executeQuery();
             
-            if(txt_username.getText().isBlank() || txt_password.getText().isBlank()){
-                JOptionPane.showMessageDialog(frame,"Must fill all the Fields");
+            
+            if(txt_password.getText().isEmpty() || txt_username.getText().isEmpty()){
+                JOptionPane.showMessageDialog(frame, "All fields must be filled!");
             }else{
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(frame,"Welcome Admin");
-                    welcome_form nxtForm = new welcome_form();
-                    nxtForm.show();
-                    show(false);
-                    
-                } else {
-                    JOptionPane.showMessageDialog(frame,"Invalid Username or Password!");
+                if(resultSet.next()){
+                   variable.hashedPasscode = resultSet.getString("passwords");
+                }
+
+                try{
+                    if(adminPassEncrypt.encryptPassword(variable.adminPassword).equals(variable.hashedPasscode)){
+                        JOptionPane.showMessageDialog(frame, "Welcome!");  
+                        welcome_form form = new welcome_form();
+                        form.show();
+                        show(false);
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Invalid Username or Password!");
+                    }
+                }catch(NoSuchAlgorithmException e){
+                    System.out.print(e);
                 }
             }
-             
         }
         catch(SQLException ex){
             System.out.println(ex);
         }
         
+        
+        
     }//GEN-LAST:event_btn_loginActionPerformed
 
     private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
-        String sql = "SELECT * FROM login_credentials WHERE usernames = ? AND passwords = ?";
+       String sql = "SELECT passwords FROM login_credentials WHERE usernames = ?";
+        variable.adminPassword = txt_password.getText();
+        variable.adminUsername = txt_username.getText();
+        
+        
         try{
-            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-            variable.adminPassword = txt_password.getText();
-            variable.adminUsername = txt_username.getText();
+            
+            PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
             
             statement.setString(1,variable.adminUsername);
-            statement.setString(2,variable.adminPassword);
             
-           
             ResultSet resultSet = statement.executeQuery();
             
-            if(txt_username.getText().isBlank() || txt_password.getText().isBlank()){
-                JOptionPane.showMessageDialog(frame,"Must fill all the Fields");
+            
+            if(txt_password.getText().isEmpty() || txt_username.getText().isEmpty()){
+                JOptionPane.showMessageDialog(frame, "All fields must be filled!");
             }else{
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(frame,"Welcome Admin");
-                    welcome_form nxtForm = new welcome_form();
-                    nxtForm.show();
-                    show(false);
-                    
-                } else {
-                    JOptionPane.showMessageDialog(frame,"Invalid Username or Password!");
+                if(resultSet.next()){
+                   variable.hashedPasscode = resultSet.getString("passwords");
+                }
+
+                try{
+                    if(adminPassEncrypt.encryptPassword(variable.adminPassword).equals(variable.hashedPasscode)){
+                        JOptionPane.showMessageDialog(frame, "Welcome!");  
+                        welcome_form form = new welcome_form();
+                        form.show();
+                        show(false);
+                    }else{
+                        JOptionPane.showMessageDialog(frame, "Invalid Username or Password!");
+                        txt_username.setText("");
+                        txt_password.setText("");
+                    }
+                }catch(NoSuchAlgorithmException e){
+                    System.out.print(e);
                 }
             }
-             
         }
         catch(SQLException ex){
             System.out.println(ex);
