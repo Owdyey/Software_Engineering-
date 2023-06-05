@@ -222,6 +222,7 @@ public class visitorProfile extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 810, 510));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void firstnameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameTxtActionPerformed
@@ -264,7 +265,7 @@ public class visitorProfile extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             }else{
                 String sql = "UPDATE visitor SET first_name = ?, middle_name = ?, surname = ?, sex = ?, age = ?, contact = ?,"
-                        + "address = ?, isEligible = ?";
+                        + "address = ?, isEligible = ? where first_name = ? and middle_name = ? and surname = ?";
 
                 try{
                     PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
@@ -275,6 +276,16 @@ public class visitorProfile extends javax.swing.JFrame {
                     statement.setString(5, ageTxt.getText());
                     statement.setString(6, contactTxt.getText());
                     statement.setString(7, addressTxt.getText().toUpperCase());
+                    if(isEligible.getText().equals("YES")){
+                        statement.setBoolean(8, true);
+                    }else{
+                        statement.setBoolean(8,false);
+                    }
+                    
+                    statement.setString(9, variable.firstName.toUpperCase());
+                    statement.setString(10, variable.middleName.toUpperCase());
+                    statement.setString(11, variable.surname.toUpperCase());
+
                     
                     if (isEligible.getText().equals("YES")){
                         statement.setBoolean(8, true);
@@ -294,6 +305,7 @@ public class visitorProfile extends javax.swing.JFrame {
                             "There's an error in the database!",
                             "Database Error",
                             JOptionPane.WARNING_MESSAGE);
+                    System.out.print(e);
                 }
             }
             

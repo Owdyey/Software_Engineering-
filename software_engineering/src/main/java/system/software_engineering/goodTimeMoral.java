@@ -30,11 +30,13 @@ public class goodTimeMoral extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        btn_goodMoral2 = new javax.swing.JButton();
         btn_login1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        btn_goodMoral3 = new javax.swing.JButton();
+        btn_goodMoral4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBackground(new java.awt.Color(0, 53, 84));
@@ -53,18 +55,6 @@ public class goodTimeMoral extends javax.swing.JFrame {
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
 
-        btn_goodMoral2.setBackground(new java.awt.Color(103, 146, 137));
-        btn_goodMoral2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        btn_goodMoral2.setForeground(new java.awt.Color(255, 255, 255));
-        btn_goodMoral2.setText("<html>\n\nSearch Prisoner Profile\n\n</html>");
-        btn_goodMoral2.setFocusable(false);
-        btn_goodMoral2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_goodMoral2ActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btn_goodMoral2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 290, 90));
-
         btn_login1.setBackground(new java.awt.Color(103, 146, 137));
         btn_login1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btn_login1.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,7 +65,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 btn_login1ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 290, 90));
+        jPanel5.add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 260, 80));
 
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -88,17 +78,35 @@ public class goodTimeMoral extends javax.swing.JFrame {
         });
         jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, -1, 30));
 
+        btn_goodMoral3.setBackground(new java.awt.Color(103, 146, 137));
+        btn_goodMoral3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btn_goodMoral3.setForeground(new java.awt.Color(255, 255, 255));
+        btn_goodMoral3.setText("<html>\n\n<p style: text-align: center>Search<br>Prisoner Profile </p>\n\n</html>");
+        btn_goodMoral3.setFocusable(false);
+        btn_goodMoral3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_goodMoral3ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btn_goodMoral3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 260, 80));
+
+        btn_goodMoral4.setBackground(new java.awt.Color(103, 146, 137));
+        btn_goodMoral4.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btn_goodMoral4.setForeground(new java.awt.Color(255, 255, 255));
+        btn_goodMoral4.setText("<html>\n\n<p style: text-align: center>Add Prisoner</p>\n\n</html>");
+        btn_goodMoral4.setFocusable(false);
+        btn_goodMoral4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_goodMoral4ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btn_goodMoral4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 260, 80));
+
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_goodMoral2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral2ActionPerformed
-        searchPrisoner form = new searchPrisoner();
-        form.show();
-        show(false);
-    }//GEN-LAST:event_btn_goodMoral2ActionPerformed
 
     private void btn_login1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_login1ActionPerformed
         listOfEvents form = new listOfEvents();
@@ -112,6 +120,14 @@ public class goodTimeMoral extends javax.swing.JFrame {
         form.show();
         show(false);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btn_goodMoral3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_goodMoral3ActionPerformed
+
+    private void btn_goodMoral4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral4ActionPerformed
+    
+    }//GEN-LAST:event_btn_goodMoral4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,7 +165,8 @@ public class goodTimeMoral extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_goodMoral2;
+    private javax.swing.JButton btn_goodMoral3;
+    private javax.swing.JButton btn_goodMoral4;
     private javax.swing.JButton btn_login1;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel7;
