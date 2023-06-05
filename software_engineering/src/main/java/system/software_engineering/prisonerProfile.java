@@ -119,7 +119,7 @@ public class prisonerProfile extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 70, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 70, 30));
 
         editBtn.setBackground(new java.awt.Color(103, 146, 137));
         editBtn.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -131,7 +131,7 @@ public class prisonerProfile extends javax.swing.JFrame {
                 editBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, 90, 38));
+        jPanel1.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 450, 90, 38));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\system\\images\\small_logo.png"));
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 120, 140));
@@ -275,10 +275,6 @@ public class prisonerProfile extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void firstnameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_firstnameTxtActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         searchPrisoner form = new searchPrisoner();
         form.show();
@@ -300,22 +296,6 @@ public class prisonerProfile extends javax.swing.JFrame {
             isAvail.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_isAvailActionPerformed
-
-    private void isReadyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isReadyActionPerformed
-        if (isReady.getText().equals("YES")) {
-            isReady.setText("NO");
-            String hexCode = "#ff3333";
-            Color color = Color.decode(hexCode);
-            isReady.setBackground(color);
-            isReady.setForeground(Color.WHITE);
-        } else {
-            isReady.setText("YES");
-            String hexCode = "#66FF66";
-            Color color = Color.decode(hexCode);
-            isReady.setBackground(color);
-            isReady.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_isReadyActionPerformed
 
     DefaultTableModel tableModel;
     
@@ -354,7 +334,7 @@ public class prisonerProfile extends javax.swing.JFrame {
                         "Event already in the list.",
                         "Error",
                         JOptionPane.INFORMATION_MESSAGE);
-                }else{
+                }else if(currentEvents != null){
                     // Append the new data to the current value
                     String newEvents = currentEvents + ", " + (String) eventList.getSelectedItem();
                     statement.setString(1, newEvents);
@@ -377,9 +357,26 @@ public class prisonerProfile extends javax.swing.JFrame {
                                 "Warning",
                                 JOptionPane.WARNING_MESSAGE);
                     }
-                }
-                
-                
+                }else{
+                    statement.setString(1, (String) eventList.getSelectedItem());
+                    int rowsAffected = statement.executeUpdate();
+
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, 
+                                "Event added to the prisoner successfully.",
+                                "Success",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        eventList.setEnabled(false);
+                        addBtn.setEnabled(false);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                                "Prisoner not found or no updates made.",
+                                "Warning",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+                }                                
                 
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, 
@@ -413,6 +410,7 @@ public class prisonerProfile extends javax.swing.JFrame {
             isAvail.setText("NO");
         }
         
+        /*here*/
         if(variable.isReady == true){
             isReady.setText("YES");
         }else{
@@ -450,15 +448,22 @@ public class prisonerProfile extends javax.swing.JFrame {
 
             while(result.next()){
                 String events = result.getString("events_attended");
-                
-                String[] eventNames = events.split(", ");
 
-                tableModel = (DefaultTableModel) eventTable.getModel();
-                tableModel.setRowCount(0);
+                if (events != null) {
+                    String[] eventNames = events.split(", ");
 
-                for (String eventName : eventNames) {
-                    Object[] rowData = { eventName };
-                    tableModel.addRow(rowData);
+                    tableModel = (DefaultTableModel) eventTable.getModel();
+                    tableModel.setRowCount(0);
+
+                    for (String eventName : eventNames) {
+                        Object[] rowData = { eventName };
+                        tableModel.addRow(rowData);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                        "This prisoner doesn't attend any events.",
+                        "Note",
+                        JOptionPane.WARNING_MESSAGE);
                 }
             }
         }catch (SQLException e) {
@@ -473,7 +478,7 @@ public class prisonerProfile extends javax.swing.JFrame {
         if(isActive){
             addBtn.setEnabled(false);
             isAvail.setEnabled(false);
-            isReady.setEnabled(false);
+            
             eventList.setEnabled(false);
             
             String sql = "UPDATE prisoners SET isAvailable = ?, is_ready = ? WHERE prisoner_first_name = ? AND prisoner_surname = ?";
@@ -540,11 +545,30 @@ public class prisonerProfile extends javax.swing.JFrame {
         } else{
             addBtn.setEnabled(true);
             isAvail.setEnabled(true);
-            isReady.setEnabled(true);
             eventList.setEnabled(true);
             editBtn.setText("Save");
         }
     }//GEN-LAST:event_editBtnActionPerformed
+
+    private void firstnameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstnameTxtActionPerformed
+
+    private void isReadyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isReadyActionPerformed
+        if (isReady.getText().equals("YES")) {
+            isReady.setText("NO");
+            String hexCode = "#ff3333";
+            Color color = Color.decode(hexCode);
+            isReady.setBackground(color);
+            isReady.setForeground(Color.WHITE);
+        } else {
+            isReady.setText("YES");
+            String hexCode = "#66FF66";
+            Color color = Color.decode(hexCode);
+            isReady.setBackground(color);
+            isReady.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_isReadyActionPerformed
 
     /**
      * @param args the command line arguments

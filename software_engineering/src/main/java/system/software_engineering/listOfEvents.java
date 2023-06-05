@@ -68,7 +68,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, -1, 30));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 250, 202));
 
@@ -113,7 +113,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnAddEventActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 450, 140, 40));
+        jPanel1.add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 140, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
