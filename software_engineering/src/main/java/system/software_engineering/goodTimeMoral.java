@@ -81,7 +81,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
         btn_goodMoral3.setBackground(new java.awt.Color(103, 146, 137));
         btn_goodMoral3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btn_goodMoral3.setForeground(new java.awt.Color(255, 255, 255));
-        btn_goodMoral3.setText("<html>\n\n<p style: text-align: center>Search<br>Prisoner Profile </p>\n\n</html>");
+        btn_goodMoral3.setText("<html>  <p style: text-align: center>Search<br>Prisoner Profile </p>  </html>");
         btn_goodMoral3.setFocusable(false);
         btn_goodMoral3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,11 +122,15 @@ public class goodTimeMoral extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btn_goodMoral3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral3ActionPerformed
-        // TODO add your handling code here:
+        searchPrisoner form = new searchPrisoner();
+        form.show();
+        show(false);
     }//GEN-LAST:event_btn_goodMoral3ActionPerformed
 
     private void btn_goodMoral4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral4ActionPerformed
-    
+        Prisoner_Form form = new Prisoner_Form();
+        form.show();
+        show(false);
     }//GEN-LAST:event_btn_goodMoral4ActionPerformed
 
     /**

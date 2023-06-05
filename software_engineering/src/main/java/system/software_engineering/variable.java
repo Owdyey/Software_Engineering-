@@ -28,6 +28,15 @@ public class variable {
     public static boolean isReady;
     
     
+    public static String pFirstname;
+    public static String pMiddlename;
+    public static String pSurname;
+    public static String pAge;
+    public static String pGender;
+    public static int pGmta;
+
+
+    
     public static boolean hasInfo = false;
     
     public static String adminUsername;
