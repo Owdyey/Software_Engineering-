@@ -33,7 +33,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
         btn_login1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         btn_goodMoral3 = new javax.swing.JButton();
-        btn_goodMoral4 = new javax.swing.JButton();
+        btn_goodMoral5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -56,7 +56,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
 
         btn_login1.setBackground(new java.awt.Color(103, 146, 137));
-        btn_login1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btn_login1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btn_login1.setForeground(new java.awt.Color(255, 255, 255));
         btn_login1.setText("List of Events");
         btn_login1.setFocusable(false);
@@ -65,7 +65,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 btn_login1ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 260, 80));
+        jPanel5.add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 220, 70));
 
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -79,7 +79,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
         jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 460, -1, 30));
 
         btn_goodMoral3.setBackground(new java.awt.Color(103, 146, 137));
-        btn_goodMoral3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btn_goodMoral3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btn_goodMoral3.setForeground(new java.awt.Color(255, 255, 255));
         btn_goodMoral3.setText("<html>  <p style: text-align: center>Search<br>Prisoner Profile </p>  </html>");
         btn_goodMoral3.setFocusable(false);
@@ -88,19 +88,19 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 btn_goodMoral3ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_goodMoral3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 260, 80));
+        jPanel5.add(btn_goodMoral3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 220, 70));
 
-        btn_goodMoral4.setBackground(new java.awt.Color(103, 146, 137));
-        btn_goodMoral4.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        btn_goodMoral4.setForeground(new java.awt.Color(255, 255, 255));
-        btn_goodMoral4.setText("<html>\n\n<p style: text-align: center>Add Prisoner</p>\n\n</html>");
-        btn_goodMoral4.setFocusable(false);
-        btn_goodMoral4.addActionListener(new java.awt.event.ActionListener() {
+        btn_goodMoral5.setBackground(new java.awt.Color(103, 146, 137));
+        btn_goodMoral5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btn_goodMoral5.setForeground(new java.awt.Color(255, 255, 255));
+        btn_goodMoral5.setText("<html>  <p style: text-align: center>Add Prisoner</p>  </html>");
+        btn_goodMoral5.setFocusable(false);
+        btn_goodMoral5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_goodMoral4ActionPerformed(evt);
+                btn_goodMoral5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_goodMoral4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 260, 80));
+        jPanel5.add(btn_goodMoral5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 220, 70));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -127,11 +127,12 @@ public class goodTimeMoral extends javax.swing.JFrame {
         show(false);
     }//GEN-LAST:event_btn_goodMoral3ActionPerformed
 
-    private void btn_goodMoral4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral4ActionPerformed
+    private void btn_goodMoral5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_goodMoral5ActionPerformed
         Prisoner_Form form = new Prisoner_Form();
         form.show();
         show(false);
-    }//GEN-LAST:event_btn_goodMoral4ActionPerformed
+             
+    }//GEN-LAST:event_btn_goodMoral5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,7 +171,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_goodMoral3;
-    private javax.swing.JButton btn_goodMoral4;
+    private javax.swing.JButton btn_goodMoral5;
     private javax.swing.JButton btn_login1;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel7;

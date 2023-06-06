@@ -47,6 +47,7 @@ public class listOfEvents extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         eventTable = new javax.swing.JTable();
         month = new com.toedter.calendar.JMonthChooser();
+        btnViewGraph = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -113,7 +114,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnAddEventActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 140, 40));
+        jPanel1.add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 140, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
@@ -150,6 +151,17 @@ public class listOfEvents extends javax.swing.JFrame {
         month.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         month.setMonth(0);
         jPanel1.add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 190, 40));
+
+        btnViewGraph.setBackground(new java.awt.Color(103, 146, 137));
+        btnViewGraph.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnViewGraph.setForeground(new java.awt.Color(255, 255, 255));
+        btnViewGraph.setText("View Graph");
+        btnViewGraph.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewGraphActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 150, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -250,6 +262,10 @@ public class listOfEvents extends javax.swing.JFrame {
         show(false);
     }//GEN-LAST:event_btnAddEventActionPerformed
 
+    private void btnViewGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewGraphActionPerformed
+        
+    }//GEN-LAST:event_btnViewGraphActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -287,6 +303,7 @@ public class listOfEvents extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEvent;
+    private javax.swing.JButton btnViewGraph;
     private javax.swing.JTable eventTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton6;

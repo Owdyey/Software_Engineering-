@@ -158,6 +158,8 @@ public class visitor_login extends javax.swing.JFrame {
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
+        
+        
         String phrase = "SELECT * FROM visitor WHERE first_name = ? AND middle_name = ? AND surname = ?";
         variable.firstName = firstnameTxt.getText();
         variable.surname = surnameTxt.getText();
