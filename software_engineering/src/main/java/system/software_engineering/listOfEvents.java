@@ -5,15 +5,27 @@
 package system.software_engineering;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -43,11 +55,13 @@ public class listOfEvents extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        btnAddEvent = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         eventTable = new javax.swing.JTable();
         month = new com.toedter.calendar.JMonthChooser();
         btnViewGraph = new javax.swing.JButton();
+        yearChoosen = new com.toedter.calendar.JYearChooser();
+        btnAddEvent1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -95,7 +109,7 @@ public class listOfEvents extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
 
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("View");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,18 +117,18 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 90, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 90, 40));
 
-        btnAddEvent.setBackground(new java.awt.Color(103, 146, 137));
-        btnAddEvent.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        btnAddEvent.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddEvent.setText("Add Event");
-        btnAddEvent.addActionListener(new java.awt.event.ActionListener() {
+        btnRemove.setBackground(new java.awt.Color(103, 146, 137));
+        btnRemove.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnRemove.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemove.setText("Delete Event");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddEventActionPerformed(evt);
+                btnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 450, 140, 40));
+        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 450, 130, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
@@ -153,7 +167,7 @@ public class listOfEvents extends javax.swing.JFrame {
         jPanel1.add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 190, 40));
 
         btnViewGraph.setBackground(new java.awt.Color(103, 146, 137));
-        btnViewGraph.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnViewGraph.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnViewGraph.setForeground(new java.awt.Color(255, 255, 255));
         btnViewGraph.setText("View Graph");
         btnViewGraph.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +175,22 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnViewGraphActionPerformed(evt);
             }
         });
-        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 150, 40));
+        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 120, 40));
+
+        yearChoosen.setBackground(new java.awt.Color(103, 146, 137));
+        yearChoosen.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jPanel1.add(yearChoosen, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 90, 40));
+
+        btnAddEvent1.setBackground(new java.awt.Color(103, 146, 137));
+        btnAddEvent1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnAddEvent1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddEvent1.setText("Add New Event");
+        btnAddEvent1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEvent1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, 130, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -177,75 +206,53 @@ public class listOfEvents extends javax.swing.JFrame {
         show(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    String myMonth;
-    DefaultTableModel tableModel;
-    String desc;
-    String title;
-    
+        String myMonth;
+        DefaultTableModel tableModel;
+        String desc = "";
+        String title;
+        String year;
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        myMonth = String.format("%02d", month.getMonth() + 1);
+       
         
-        String sql = "SELECT * FROM events WHERE SUBSTRING(event_date, 6, 2) = ?";
+        myMonth = String.format("%02d", month.getMonth() + 1);
+        year = Integer.toString(yearChoosen.getYear());
+
+        String sql = "SELECT * FROM events WHERE SUBSTRING(event_date, 6, 2) = ? AND SUBSTRING(event_date,1,4)=?";
 
         try {
             PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
             statement.setString(1, myMonth);
-            
+            statement.setString(2, year);
+
             ResultSet resultSet = statement.executeQuery();
 
             tableModel = (DefaultTableModel) eventTable.getModel();
             tableModel.setRowCount(0);
-            
-            
+
             boolean hasData = false;
-            
+
             while (resultSet.next()) {
                 hasData = true;
-                
+
                 desc = resultSet.getString("event_desc");
-                
+
                 Object[] rowData = {
-                resultSet.getString("event_title"),
-                resultSet.getString("event_date"),
-                resultSet.getString("event_duration")
+                    resultSet.getString("event_title"),
+                    resultSet.getString("event_date"),
+                    resultSet.getString("event_duration")
                 };
 
                 tableModel.addRow(rowData);
             }
-            eventTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                boolean showDialog = true;
-                
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    if (!e.getValueIsAdjusting() && showDialog) {
-                        showDialog = false;
-                        
-                        int selectedRow = eventTable.getSelectedRow();
-                        if (selectedRow != -1) { 
-                            String evTitle = eventTable.getValueAt(selectedRow, 0).toString();
-                            String date = eventTable.getValueAt(selectedRow, 1).toString();
-                            int duration = Integer.parseInt(eventTable.getValueAt(selectedRow, 2).toString());
-                            int hours = duration / 60;
-                            int mins = duration % 60;
 
-                            JOptionPane.showMessageDialog(null ,"Event Title: " + evTitle + "\n" +
-                                    "Description: " + desc + "\n\nDate: " + date + "\nDuration: " + hours + " hr/s and " + mins + " min/s", 
-                                    "Event Information", 
-                                    JOptionPane.INFORMATION_MESSAGE );
-                            showDialog = true;
-                        }
-                    }
-                }
-            });
-            
-            if(!hasData){
+
+            if (!hasData) {
                 JOptionPane.showMessageDialog(null,
-                    "There is no event this month.",
-                    "No Event",
-                    JOptionPane.WARNING_MESSAGE);
+                        "There is no event this month.",
+                        "No Event",
+                        JOptionPane.WARNING_MESSAGE);
             }
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
                     "There's an error in the database!",
@@ -256,15 +263,64 @@ public class listOfEvents extends javax.swing.JFrame {
 
     
     
-    private void btnAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEventActionPerformed
-        addEvent form = new addEvent();
-        form.show();
-        show(false);
-    }//GEN-LAST:event_btnAddEventActionPerformed
-
     private void btnViewGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewGraphActionPerformed
-        
+       String sql = "SELECT events_attended FROM prisoners";
+            try {
+                PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+
+                Map<String, Integer> valueCountMap = new HashMap<>();
+                while (resultSet.next()) {
+                    String rowData = resultSet.getString("events_attended");
+                    String[] values = rowData.split(",");
+
+                    // Count the occurrences of each value
+                    for (String value : values) {
+                        value = value.trim();
+                        int count = valueCountMap.getOrDefault(value, 0);
+                        valueCountMap.put(value, count + 1);
+                    }
+                }
+
+                // Create a dataset for the bar graph
+
+
+                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+                for (Map.Entry<String, Integer> entry : valueCountMap.entrySet()) {
+                    String value = entry.getKey();
+                    int count = entry.getValue();
+                    dataset.addValue(count, "Count", value);
+                }
+
+                // Create the bar chart
+                JFreeChart chart = ChartFactory.createBarChart("Value Counts", "Value", "Count", dataset, PlotOrientation.VERTICAL, false, true, false);
+
+
+                 NumberAxis rangeAxis = (NumberAxis) chart.getCategoryPlot().getRangeAxis();
+                rangeAxis.setRange(0, 20); // Set the desired range
+
+                // Display the chart in a frame
+                ChartFrame frame = new ChartFrame("Event Report", chart);
+                frame.setResizable(false); // Make the frame non-resizable
+
+                frame.setPreferredSize(new Dimension(800, 500));
+                frame.pack();
+                frame.setVisible(true);
+
+            } catch (SQLException e) {
+                System.out.print(e);
+            }
     }//GEN-LAST:event_btnViewGraphActionPerformed
+
+    private void btnAddEvent1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEvent1ActionPerformed
+       addEvent form = new addEvent();
+       form.show();
+       show(false);
+    }//GEN-LAST:event_btnAddEvent1ActionPerformed
+
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        String delSQL = "DELETE FROM `system`.`events` WHERE event_id = ?";
+    }//GEN-LAST:event_btnRemoveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -302,7 +358,8 @@ public class listOfEvents extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddEvent;
+    private javax.swing.JButton btnAddEvent1;
+    private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnViewGraph;
     private javax.swing.JTable eventTable;
     private javax.swing.JButton jButton1;
@@ -313,5 +370,6 @@ public class listOfEvents extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private com.toedter.calendar.JMonthChooser month;
+    private com.toedter.calendar.JYearChooser yearChoosen;
     // End of variables declaration//GEN-END:variables
 }

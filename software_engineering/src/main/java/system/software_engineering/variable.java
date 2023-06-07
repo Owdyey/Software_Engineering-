@@ -4,6 +4,9 @@
  */
 package system.software_engineering;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  *
  * @author addie
@@ -36,7 +39,8 @@ public class variable {
     public static int pGmta;
 
     public static String hashedPasscode;
-
+    public static ArrayList<String> list = new ArrayList<String>();
+    public static Iterator<String> iterator = list.iterator();
     
     public static boolean hasInfo = false;
     

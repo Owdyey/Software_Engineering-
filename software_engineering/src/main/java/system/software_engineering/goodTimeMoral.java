@@ -65,7 +65,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 btn_login1ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 220, 70));
+        jPanel5.add(btn_login1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, 220, 70));
 
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -88,7 +88,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 btn_goodMoral3ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_goodMoral3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 220, 70));
+        jPanel5.add(btn_goodMoral3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, 220, 70));
 
         btn_goodMoral5.setBackground(new java.awt.Color(103, 146, 137));
         btn_goodMoral5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -100,7 +100,7 @@ public class goodTimeMoral extends javax.swing.JFrame {
                 btn_goodMoral5ActionPerformed(evt);
             }
         });
-        jPanel5.add(btn_goodMoral5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 220, 70));
+        jPanel5.add(btn_goodMoral5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, 220, 70));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
