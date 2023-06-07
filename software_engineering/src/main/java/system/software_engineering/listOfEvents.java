@@ -293,6 +293,46 @@ public class listOfEvents extends javax.swing.JFrame {
         
     
     private void btnViewGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewGraphActionPerformed
+        
+//        String searchString = null;
+//        String sql = "SELECT events_attended FROM prisoners";
+//        try{
+//            int selectedRowIndex = eventTable.getSelectedRow();
+//            DefaultTableModel model = (DefaultTableModel) eventTable.getModel();
+//            Object[] rowData = new Object[model.getColumnCount()];
+//            for (int i = 0; i < model.getColumnCount(); i++) {
+//                rowData[i] = model.getValueAt(selectedRowIndex, i);
+//            }
+//            searchString = (String) rowData[selectedRowIndex];
+//        }
+//        try {
+//            PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            int count = 0;
+//            while (resultSet.next()) {
+//                String rowData = resultSet.getString("events_attended");
+//                if (rowData != null) {
+//                    String[] values = rowData.split(",");
+//
+//                    // Check if the search string is present in each value
+//                    for (String value : values) {
+//                        if (value.trim().equalsIgnoreCase(searchString)) {
+//                            count++;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            // Print the count of occurrences
+//            System.out.println("Occurrences of \"" + searchString + "\": " + count);
+//
+//        } catch (SQLException e) {
+//            System.out.print(e);
+//        }
+//        
+        
+        
         String sql = "SELECT events_attended FROM prisoners";
         String dateSql = "SELECT event_date FROM events WHERE event_title = ?";
 
