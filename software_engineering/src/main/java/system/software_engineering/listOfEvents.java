@@ -68,6 +68,7 @@ public class listOfEvents extends javax.swing.JFrame {
         yearChoosen = new com.toedter.calendar.JYearChooser();
         btnAddEvent1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -123,7 +124,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 90, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 90, 40));
 
         btnRemove.setBackground(new java.awt.Color(103, 146, 137));
         btnRemove.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -134,7 +135,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 130, 40));
+        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, 130, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
@@ -181,7 +182,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnViewGraphActionPerformed(evt);
             }
         });
-        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 40));
+        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 120, 40));
 
         yearChoosen.setBackground(new java.awt.Color(103, 146, 137));
         yearChoosen.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -196,7 +197,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnAddEvent1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 130, 40));
+        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 130, 40));
 
         jButton2.setBackground(new java.awt.Color(103, 146, 137));
         jButton2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -207,7 +208,18 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 120, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 120, 40));
+
+        jButton3.setBackground(new java.awt.Color(103, 146, 137));
+        jButton3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Edit Event");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 100, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -352,6 +364,7 @@ public class listOfEvents extends javax.swing.JFrame {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         
+    try{    
         int selectedRowIndex = eventTable.getSelectedRow();
 
         DefaultTableModel model = (DefaultTableModel) eventTable.getModel();
@@ -401,7 +414,10 @@ try {
     // Handle any errors that may occur if the ID value is not a valid integer
     e.printStackTrace();
 }
+    }catch(ArrayIndexOutOfBoundsException ex){
 
+            JOptionPane.showMessageDialog(null, "Please select event first");
+        }
 
 
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -488,6 +504,29 @@ try {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        
+      
+        try{   //get the selected row logic
+            int selectedRowIndex = eventTable.getSelectedRow();
+            DefaultTableModel model = (DefaultTableModel) eventTable.getModel();
+            Object[] rowData = new Object[model.getColumnCount()];
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                rowData[i] = model.getValueAt(selectedRowIndex, i);
+            }
+            model.removeRow(selectedRowIndex);
+
+
+            variable.eventToEdit = (String) rowData[selectedRowIndex];        
+            editEvent form = new editEvent();
+            form.show();
+            show(false);
+        }catch(ArrayIndexOutOfBoundsException ex){
+            JOptionPane.showMessageDialog(null, "Please select event first");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -530,6 +569,7 @@ try {
     private javax.swing.JTable eventTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;

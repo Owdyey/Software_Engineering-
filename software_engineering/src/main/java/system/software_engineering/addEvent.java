@@ -178,9 +178,6 @@ public class addEvent extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String sql = "INSERT INTO events (event_title, event_date, event_duration, event_desc) VALUES(?, ?, ?, ?)";
         
-        
-        
-        
         if(dateOfEvent.getDate() == null){
             JOptionPane.showMessageDialog(null,
                     "Date of event cannot be empty!", 

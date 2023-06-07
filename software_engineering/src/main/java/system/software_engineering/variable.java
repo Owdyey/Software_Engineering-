@@ -47,6 +47,6 @@ public class variable {
     public static String adminUsername;
     public static String adminPassword;
     
- 
+    public static String eventToEdit;
 }
 
