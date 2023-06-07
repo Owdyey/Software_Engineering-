@@ -24,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -350,7 +351,59 @@ public class listOfEvents extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddEvent1ActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        String delSQL = "DELETE FROM `system`.`events` WHERE event_id = ?";
+        
+        int selectedRowIndex = eventTable.getSelectedRow();
+
+        DefaultTableModel model = (DefaultTableModel) eventTable.getModel();
+        Object[] rowData = new Object[model.getColumnCount()];
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            rowData[i] = model.getValueAt(selectedRowIndex, i);
+        }
+        
+        
+        model.removeRow(selectedRowIndex);
+
+        System.out.println(rowData[selectedRowIndex]);
+    
+String deleteSql = "DELETE FROM events WHERE event_id = ?";
+String selectEventIdSql = "SELECT event_id FROM events WHERE event_title = ?";
+
+try {
+    PreparedStatement selectStatement = sql_connect.db_connect().prepareStatement(selectEventIdSql);
+    selectStatement.setString(1, (String) rowData[selectedRowIndex]); // Assuming the second column represents the event title as a String
+    
+    
+    // Execute the select statement to retrieve the event ID
+    ResultSet resultSet = selectStatement.executeQuery();
+    int eventId = 0;
+    if (resultSet.next()) {
+        eventId = resultSet.getInt("event_id");
+    }
+    resultSet.close();
+    selectStatement.close();
+
+    PreparedStatement deleteStatement = sql_connect.db_connect().prepareStatement(deleteSql);
+    deleteStatement.setInt(1, eventId); // Assuming the event_id column is of type INT
+
+    // Execute the delete statement
+    int rowsAffected = deleteStatement.executeUpdate();
+
+    if (rowsAffected > 0) {
+        // Row deleted successfully from the database
+        JOptionPane.showMessageDialog(frame, "Event Deleted Successfully!");
+    }
+
+    deleteStatement.close();
+} catch (SQLException e) {
+    // Handle any errors that may occur during the delete operation
+    e.printStackTrace();
+} catch (NumberFormatException e) {
+    // Handle any errors that may occur if the ID value is not a valid integer
+    e.printStackTrace();
+}
+
+
+
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
