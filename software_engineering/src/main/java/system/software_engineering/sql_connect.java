@@ -22,7 +22,7 @@ public class sql_connect {
         
         String url = "jdbc:mysql://" + hostname + ":" + port_num + "/" + db_name;
         String username = "root";
-        String password = "Malakassiojay29";
+        String password = "Admin_12345";
         
         try{    
             Class.forName("com.mysql.cj.jdbc.Driver");

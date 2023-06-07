@@ -390,69 +390,83 @@ public class autoFill extends javax.swing.JFrame {
         variable.inmateFname = inmateFnameTxt.getText();
         variable.inmateSurname = inmateSurnameTxt.getText();
         variable.middleName = middlenameTxt.getText();
-
-        // Add 15 minutes to the original time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        LocalTime localTime = LocalTime.parse(visitTime, formatter);
-        LocalTime newTime = localTime.plusMinutes(15);
-
-        // Format the new time as a string in the desired format
-        String formattedTime = newTime.format(formatter);
         
-        if (firstnameTxt.getText().isBlank() || surnameTxt.getText().isBlank() || ageTxt.getText().isBlank()
-            || genderTxt.getSelectedItem().equals("")|| addressTxt.getText().isBlank() || contactTxt.getText().isBlank()
-            || inmateFnameTxt.getText().isBlank() || selected.isEmpty()) {
+        //revisions
+        
 
-            JOptionPane.showMessageDialog(frame, "Make sure you fill all the fields!");
-        }else if(!pStatus.exists()){
-            JOptionPane.showMessageDialog(frame, "Prisoner Does't Exist!");
-            inmateFnameTxt.setText("");
-            inmateSurnameTxt.setText("");
-        } 
+        try{
+            int age = Integer.parseInt(variable.age);
+            int contactNo = Integer.parseInt(variable.contactNo);
+           // Add 15 minutes to the original time
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+            LocalTime localTime = LocalTime.parse(visitTime, formatter);
+            LocalTime newTime = localTime.plusMinutes(15);
 
-        else if(!pStatus.check()) {
-            JOptionPane.showMessageDialog(frame, "Visitation is not permitted for the prisoner!");
-        } else {            
-            try {
-                PreparedStatement statement = sql_connect.db_connect().prepareStatement(sqlSyntax);
+            // Format the new time as a string in the desired format
+            String formattedTime = newTime.format(formatter);
 
-                statement.setString(1, variable.firstName.toUpperCase());
-                statement.setString(2, variable.middleName.toUpperCase());
-                statement.setString(3, variable.surname.toUpperCase());
-                statement.setString(4, variable.gender.toUpperCase());
-                statement.setString(5, variable.age);
-                statement.setString(6, variable.contactNo);
-                statement.setString(7, variable.address.toUpperCase());
-                statement.setString(8, formattedDate);
-                statement.setString(9, visitTime);
-                statement.setString(10, formattedTime);
-                statement.setString(11, selected.toUpperCase());
-                statement.setString(12, variable.inmateFname.toUpperCase());
-                statement.setString(13, variable.inmateSurname.toUpperCase());
-                statement.setBoolean(14,true);
+            if (firstnameTxt.getText().isBlank() || surnameTxt.getText().isBlank() || ageTxt.getText().isBlank()
+                || genderTxt.getSelectedItem().equals("")|| addressTxt.getText().isBlank() || contactTxt.getText().isBlank()
+                || inmateFnameTxt.getText().isBlank() || selected.isEmpty()) {
 
-                statement.executeUpdate();
-                JOptionPane.showMessageDialog(frame, "Information added");
-
-                firstnameTxt.setText("");
-                surnameTxt.setText("");
-                middlenameTxt.setText("");
-                ageTxt.setText("");
-                genderTxt.setSelectedItem(null);
-                contactTxt.setText("");
-                addressTxt.setText("");
-                buttonGroup1.clearSelection();
+                JOptionPane.showMessageDialog(frame, "Make sure you fill all the fields!");
+            }else if(!pStatus.exists()){
+                JOptionPane.showMessageDialog(frame, "Prisoner Does't Exist!");
                 inmateFnameTxt.setText("");
                 inmateSurnameTxt.setText("");
+            } 
 
-                }catch (SQLException ex) {
-                    System.out.print(ex);
-                }
-                
-            seeListBtn.setEnabled(true);
+            else if(!pStatus.check()) {
+                JOptionPane.showMessageDialog(frame, "Visitation is not permitted for the prisoner!");
+            } else {            
+                try {
+                    PreparedStatement statement = sql_connect.db_connect().prepareStatement(sqlSyntax);
 
+                    statement.setString(1, variable.firstName.toUpperCase());
+                    statement.setString(2, variable.middleName.toUpperCase());
+                    statement.setString(3, variable.surname.toUpperCase());
+                    statement.setString(4, variable.gender.toUpperCase());
+                    statement.setString(5, variable.age);
+                    statement.setString(6, variable.contactNo);
+                    statement.setString(7, variable.address.toUpperCase());
+                    statement.setString(8, formattedDate);
+                    statement.setString(9, visitTime);
+                    statement.setString(10, formattedTime);
+                    statement.setString(11, selected.toUpperCase());
+                    statement.setString(12, variable.inmateFname.toUpperCase());
+                    statement.setString(13, variable.inmateSurname.toUpperCase());
+                    statement.setBoolean(14,true);
+
+                    statement.executeUpdate();
+                    JOptionPane.showMessageDialog(frame, "Information added");
+
+                    firstnameTxt.setText("");
+                    surnameTxt.setText("");
+                    middlenameTxt.setText("");
+                    ageTxt.setText("");
+                    genderTxt.setSelectedItem(null);
+                    contactTxt.setText("");
+                    addressTxt.setText("");
+                    buttonGroup1.clearSelection();
+                    inmateFnameTxt.setText("");
+                    inmateSurnameTxt.setText("");
+
+                    }catch (SQLException ex) {
+                        System.out.print(ex);
+                    }
+
+                seeListBtn.setEnabled(true);
+            }         
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(frame, 
+                "Age or contact should be number only!",
+                "Invalid input",
+                JOptionPane.ERROR_MESSAGE);
+            seeListBtn.setEnabled(false);
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
-    }
+        
     private void seeListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeListBtnActionPerformed
         batch_schedule form = new batch_schedule();
         form.show(true);

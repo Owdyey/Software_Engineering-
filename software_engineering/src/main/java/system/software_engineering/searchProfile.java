@@ -195,7 +195,10 @@ public class searchProfile extends javax.swing.JFrame {
                 
             }
         }catch(SQLException ex){
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -86,69 +86,81 @@ public class Prisoner_Form extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setText("First Name:");
-        jPanel7.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 120, -1));
+        jPanel7.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 130, 30));
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Middle Name:");
-        jPanel7.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 150, -1));
+        jPanel7.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 150, 30));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Surname:");
-        jPanel7.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 260, 100, -1));
+        jPanel7.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Age:");
-        jPanel7.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 67, -1));
+        jPanel7.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 67, 30));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Prisoner's Sentence (in months):");
-        jPanel7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 290, -1));
+        jPanel7.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 290, 30));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Gender:");
-        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, 80, -1));
+        jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 80, 30));
 
         pfirstName.setBackground(new java.awt.Color(255, 250, 202));
+        pfirstName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         pfirstName.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel7.add(pfirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, 270, 30));
+        jPanel7.add(pfirstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 240, 30));
 
         pmiddleName.setBackground(new java.awt.Color(255, 250, 202));
+        pmiddleName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         pmiddleName.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel7.add(pmiddleName, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 220, 240, 30));
+        jPanel7.add(pmiddleName, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 230, 240, 30));
 
         pSurname.setBackground(new java.awt.Color(255, 250, 202));
+        pSurname.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         pSurname.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel7.add(pSurname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 280, 30));
+        jPanel7.add(pSurname, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 240, 30));
 
         pAge.setBackground(new java.awt.Color(255, 250, 202));
+        pAge.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         pAge.setForeground(new java.awt.Color(0, 0, 0));
         pAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pAgeActionPerformed(evt);
             }
         });
-        jPanel7.add(pAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 60, 30));
+        jPanel7.add(pAge, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 60, 30));
 
         pGmta.setBackground(new java.awt.Color(255, 250, 202));
+        pGmta.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         pGmta.setForeground(new java.awt.Color(0, 0, 0));
         pGmta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pGmtaActionPerformed(evt);
             }
         });
-        jPanel7.add(pGmta, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 80, 30));
+        jPanel7.add(pGmta, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, 80, 30));
 
         pGender.setBackground(new java.awt.Color(255, 250, 202));
+        pGender.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         pGender.setForeground(new java.awt.Color(0, 0, 0));
         pGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
         pGender.setSelectedIndex(-1);
-        jPanel7.add(pGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 340, 70, 30));
+        jPanel7.add(pGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 80, 30));
 
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
         jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -170,7 +182,7 @@ public class Prisoner_Form extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, 110, -1));
+        jPanel7.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 400, 110, -1));
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -194,89 +206,99 @@ public class Prisoner_Form extends javax.swing.JFrame {
     Component frame;
     
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        
-        boolean isExisting = true;
-        
-        String sql = "SELECT * FROM prisoners where prisoner_first_name = ? and prisoner_middle_name = ? and prisoner_surname = ?";
-        String sql1 = "INSERT INTO prisoners (prisoner_first_name, prisoner_middle_name, prisoner_surname,age,gender,isAvailable,gmta_status,is_ready) VALUES (?,?,?,?,?,?,?,?)";
-        
         variable.pFirstname = pfirstName.getText().toUpperCase();
         variable.pMiddlename = pmiddleName.getText().toUpperCase();
         variable.pSurname = pSurname.getText().toUpperCase();
         variable.pAge = pAge.getText();
         variable.pGender = (String) pGender.getSelectedItem();
         
-        
         try{
-            PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
+            int age = Integer.parseInt(variable.pAge);
+            int sentence = Integer.parseInt(pGmta.getText());
             
-            statement.setString(1, variable.pFirstname);
-            statement.setString(2, variable.pMiddlename);
-            statement.setString(3, variable.pSurname);
-
-            ResultSet resultSet = statement.executeQuery();
-            
-            if(resultSet.next()){
-                isExisting = true;
-            }else{
-                isExisting= false;
-            }
-        }catch(SQLException e){
-            System.out.println(e);
-        }
+            boolean isExisting = true;
         
-        if(pfirstName.getText().toUpperCase().isEmpty() 
-                || pmiddleName.getText().toUpperCase().isEmpty()
-                || pSurname.getText().toUpperCase().isEmpty()
-                || pAge.getText().isEmpty()
-                || variable.pGender.isEmpty()){
-            JOptionPane.showMessageDialog(frame, 
-                                "All fields must be filled!");
-        }else{
-            if(!isExisting){
+            String sql = "SELECT * FROM prisoners where prisoner_first_name = ? and prisoner_middle_name = ? and prisoner_surname = ?";
+            String sql1 = "INSERT INTO prisoners (prisoner_first_name, prisoner_middle_name, prisoner_surname,age,gender,isAvailable,gmta_status,is_ready) VALUES (?,?,?,?,?,?,?,?)";
 
-                try{
-                PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql1);
+            try{
+                PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
 
                 statement.setString(1, variable.pFirstname);
-                statement.setString(2,variable.pMiddlename);
-                statement.setString(3,variable.pSurname);
-                statement.setString(4,variable.pAge);
-                statement.setString(5,variable.pGender.toUpperCase());
-                statement.setBoolean(6,true);
-                statement.setInt(7,variable.pGmta);
-                statement.setBoolean(8,false);
+                statement.setString(2, variable.pMiddlename);
+                statement.setString(3, variable.pSurname);
 
-                statement.executeUpdate();
+                ResultSet resultSet = statement.executeQuery();
 
-                JOptionPane.showMessageDialog(frame, 
-                                "Information added successfully!");
-                
-                pfirstName.setText("");
-                pmiddleName.setText("");
-                pSurname.setText("");
-                pAge.setText("");
-                pGender.setSelectedItem(null);
-                pGmta.setText("");
-       
-                
-                
-
-            }catch (SQLException e){
-                System.out.println(e);
+                if(resultSet.next()){
+                    isExisting = true;
+                }else{
+                    isExisting= false;
+                }
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
             }
 
+            if(pfirstName.getText().toUpperCase().isEmpty() 
+                    || pmiddleName.getText().toUpperCase().isEmpty()
+                    || pSurname.getText().toUpperCase().isEmpty()
+                    || pAge.getText().isEmpty()
+                    || variable.pGender.isEmpty()){
+                JOptionPane.showMessageDialog(frame, 
+                                    "All fields must be filled!");
             }else{
-                JOptionPane.showMessageDialog(frame, 
-                                "Prisoner information already exist!");
-                pfirstName.setText("");
-                pmiddleName.setText("");
-                pSurname.setText("");
-                pAge.setText("");
-                pGender.setSelectedItem(null);
-                pGmta.setText("");
+                if(!isExisting){
+
+                    try{
+                    PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql1);
+
+                    statement.setString(1, variable.pFirstname);
+                    statement.setString(2,variable.pMiddlename);
+                    statement.setString(3,variable.pSurname);
+                    statement.setString(4,variable.pAge);
+                    statement.setString(5,variable.pGender.toUpperCase());
+                    statement.setBoolean(6,true);
+                    statement.setInt(7, sentence);
+                    statement.setBoolean(8,false);
+
+                    statement.executeUpdate();
+
+                    JOptionPane.showMessageDialog(frame, 
+                                    "Information added successfully!");
+
+                    pfirstName.setText("");
+                    pmiddleName.setText("");
+                    pSurname.setText("");
+                    pAge.setText("");
+                    pGender.setSelectedItem(null);
+                    pGmta.setText("");
+                    
+                }catch (SQLException e){
+                    System.out.println(e);
+                }
+
+                }else{
+                    JOptionPane.showMessageDialog(frame, 
+                                    "Prisoner information already exist!");
+                    pfirstName.setText("");
+                    pmiddleName.setText("");
+                    pSurname.setText("");
+                    pAge.setText("");
+                    pGender.setSelectedItem(null);
+                    pGmta.setText("");
+                }
             }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(frame, 
+                "Age or prisoner's sentence should be number only!",
+                "Invalid input",
+                JOptionPane.ERROR_MESSAGE);
+            
         }
+        
         
         
         

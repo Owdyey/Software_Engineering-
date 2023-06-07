@@ -155,12 +155,18 @@ public class login_form extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(frame, "Invalid Username or Password!");
                     }
                 }catch(NoSuchAlgorithmException e){
-                    System.out.print(e);
+                    JOptionPane.showMessageDialog(null,
+                    "Error",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
         catch(SQLException ex){
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
         
         

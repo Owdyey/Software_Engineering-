@@ -33,7 +33,7 @@ public class searchPrisoner extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        firstnameTxt = new javax.swing.JTextField();
+        middlenameTxt = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -42,6 +42,8 @@ public class searchPrisoner extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         surnameTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        firstnameTxt = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -56,10 +58,10 @@ public class searchPrisoner extends javax.swing.JFrame {
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        firstnameTxt.setBackground(new java.awt.Color(255, 250, 202));
-        firstnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        firstnameTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 220, 40));
+        middlenameTxt.setBackground(new java.awt.Color(255, 250, 202));
+        middlenameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        middlenameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(middlenameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 220, 40));
 
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -123,8 +125,19 @@ public class searchPrisoner extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("First Name :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, -1, 20));
+        jLabel4.setText("Middle Name :");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 120, 20));
+
+        firstnameTxt.setBackground(new java.awt.Color(255, 250, 202));
+        firstnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        firstnameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 220, 40));
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel5.setText("First Name :");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -140,13 +153,14 @@ public class searchPrisoner extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         
-        String sql = "SELECT * FROM prisoners WHERE prisoner_first_name = ? AND prisoner_surname = ?";
+        String sql = "SELECT * FROM prisoners WHERE prisoner_first_name = ? AND prisoner_middle_name = ? AND prisoner_surname = ?";
         
         boolean hasData = false;
         try{
             PreparedStatement statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
             statement.setString(1, firstnameTxt.getText());
-            statement.setString(2, surnameTxt.getText());
+            statement.setString(2, middlenameTxt.getText());
+            statement.setString(3, surnameTxt.getText());
             
             ResultSet result = statement.executeQuery();
             
@@ -154,6 +168,7 @@ public class searchPrisoner extends javax.swing.JFrame {
             
             while(result.next()){
                 variable.firstName = result.getString("prisoner_first_name");
+                variable.middleName = result.getString("prisoner_middle_name");
                 variable.surname = result.getString("prisoner_surname");
                 variable.age = result.getString("age");
                 variable.gender = result.getString("gender");
@@ -169,6 +184,9 @@ public class searchPrisoner extends javax.swing.JFrame {
                     "Prisoner not found.",
                     "No Data",
                     JOptionPane.WARNING_MESSAGE);
+                firstnameTxt.setText("");
+                middlenameTxt.setText("");
+                surnameTxt.setText("");
             }else{
                 prisonerProfile form = new prisonerProfile();
                 form.show();
@@ -229,10 +247,12 @@ public class searchPrisoner extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField middlenameTxt;
     private javax.swing.JTextField surnameTxt;
     // End of variables declaration//GEN-END:variables
 }

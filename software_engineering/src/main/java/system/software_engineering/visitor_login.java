@@ -197,6 +197,9 @@ public class visitor_login extends javax.swing.JFrame {
                         "The visitor is not eligible to visit a prisoner.",
                         "Visit Error",
                         JOptionPane.WARNING_MESSAGE);
+                    firstnameTxt.setText("");
+                    middlenameTxt.setText("");
+                    firstnameTxt.setText("");
                 }
                 
             }else{
@@ -211,7 +214,10 @@ public class visitor_login extends javax.swing.JFrame {
             }
             }
         }catch(SQLException ex){
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
         
             

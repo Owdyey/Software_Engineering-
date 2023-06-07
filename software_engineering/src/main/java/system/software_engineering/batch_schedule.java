@@ -219,7 +219,10 @@ public class batch_schedule extends javax.swing.JFrame {
             tableModel.addRow(rowData);            
         }
     } catch (SQLException ex) {
-        System.out.println(ex);
+        JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
     }
 }
 

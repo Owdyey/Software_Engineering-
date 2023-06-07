@@ -60,6 +60,8 @@ public class prisonerProfile extends javax.swing.JFrame {
         eventList = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        middlenameTxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -83,13 +85,13 @@ public class prisonerProfile extends javax.swing.JFrame {
                 firstnameTxtActionPerformed(evt);
             }
         });
-        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 240, 40));
+        jPanel1.add(firstnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 240, 40));
 
         surnameTxt.setEditable(false);
         surnameTxt.setBackground(new java.awt.Color(255, 250, 202));
         surnameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         surnameTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(surnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 240, 40));
+        jPanel1.add(surnameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 240, 40));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,17 +101,17 @@ public class prisonerProfile extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Surname :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("<html> <p text-align: center>Is<br>Available: </p> </html>");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 70, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 70, -1));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Gender :");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
 
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
         jButton1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -165,7 +167,7 @@ public class prisonerProfile extends javax.swing.JFrame {
         genderTxt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MALE", "FEMALE" }));
         genderTxt.setSelectedIndex(-1);
         genderTxt.setEnabled(false);
-        jPanel1.add(genderTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 100, 40));
+        jPanel1.add(genderTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 100, 40));
 
         isAvail.setBackground(new java.awt.Color(255, 250, 202));
         isAvail.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -179,18 +181,18 @@ public class prisonerProfile extends javax.swing.JFrame {
                 isAvailActionPerformed(evt);
             }
         });
-        jPanel1.add(isAvail, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 70, 40));
+        jPanel1.add(isAvail, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 70, 40));
 
         remainingDays.setEditable(false);
         remainingDays.setBackground(new java.awt.Color(255, 250, 202));
         remainingDays.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         remainingDays.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(remainingDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 80, 40));
+        jPanel1.add(remainingDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 80, 40));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Ready to be released :");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 170, 40));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 170, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
@@ -214,23 +216,23 @@ public class prisonerProfile extends javax.swing.JFrame {
         eventTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(eventTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 320, 170));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, 320, 190));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Age :");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
         ageTxt.setEditable(false);
         ageTxt.setBackground(new java.awt.Color(255, 250, 202));
         ageTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         ageTxt.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(ageTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 61, 40));
+        jPanel1.add(ageTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 61, 40));
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("<html> <p text-align: center>Remaining<br>Days :</p> </html>");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, -1, 40));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, -1, 40));
 
         isReady.setBackground(new java.awt.Color(255, 250, 202));
         isReady.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -244,7 +246,7 @@ public class prisonerProfile extends javax.swing.JFrame {
                 isReadyActionPerformed(evt);
             }
         });
-        jPanel1.add(isReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 70, 40));
+        jPanel1.add(isReady, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, 70, 40));
 
         eventList.setBackground(new java.awt.Color(255, 250, 202));
         eventList.setForeground(new java.awt.Color(0, 0, 0));
@@ -256,7 +258,7 @@ public class prisonerProfile extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("First Name :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         addBtn.setBackground(new java.awt.Color(103, 146, 137));
         addBtn.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -269,6 +271,22 @@ public class prisonerProfile extends javax.swing.JFrame {
             }
         });
         jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 440, 90, 30));
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Middle Name :");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 110, -1));
+
+        middlenameTxt.setEditable(false);
+        middlenameTxt.setBackground(new java.awt.Color(255, 250, 202));
+        middlenameTxt.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        middlenameTxt.setForeground(new java.awt.Color(0, 0, 0));
+        middlenameTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                middlenameTxtActionPerformed(evt);
+            }
+        });
+        jPanel1.add(middlenameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 240, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 810, 510));
 
@@ -395,10 +413,12 @@ public class prisonerProfile extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         addBtn.setEnabled(false);
         firstnameTxt.setText(variable.firstName);
+        middlenameTxt.setText(variable.middleName);
         surnameTxt.setText(variable.surname);
         ageTxt.setText(variable.age);
         genderTxt.setSelectedItem(variable.gender);
         remainingDays.setText(Integer.toString(variable.remainingDays));
+        
         
         if(variable.isAvailable == true){
             isAvail.setText("YES");
@@ -429,7 +449,10 @@ public class prisonerProfile extends javax.swing.JFrame {
             eventList.setModel(models);
             
         }catch (SQLException e) {
-            
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
         
         try {
@@ -463,7 +486,10 @@ public class prisonerProfile extends javax.swing.JFrame {
                 }
             }
         }catch (SQLException e) {
-            System.out.println(e);
+           JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
         
     }//GEN-LAST:event_formWindowOpened
@@ -529,7 +555,10 @@ public class prisonerProfile extends javax.swing.JFrame {
                         }
                     }
                 }catch (SQLException e) {
-                    System.out.println(e);
+                    JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
                 }
                 
             } catch (SQLException e) {
@@ -567,6 +596,10 @@ public class prisonerProfile extends javax.swing.JFrame {
             isReady.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_isReadyActionPerformed
+
+    private void middlenameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_middlenameTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_middlenameTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -616,6 +649,7 @@ public class prisonerProfile extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -627,6 +661,7 @@ public class prisonerProfile extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField middlenameTxt;
     private javax.swing.JTextField remainingDays;
     private javax.swing.JTextField surnameTxt;
     // End of variables declaration//GEN-END:variables

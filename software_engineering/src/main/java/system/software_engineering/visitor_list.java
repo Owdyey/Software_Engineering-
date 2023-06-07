@@ -228,7 +228,10 @@ public class visitor_list extends javax.swing.JFrame {
           }
           
         }catch(SQLException e){
-            
+            JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
         }
         
         if(!record){
@@ -372,7 +375,10 @@ public class visitor_list extends javax.swing.JFrame {
         }
 
     } catch (SQLException ex) {
-        System.out.println(ex);
+        JOptionPane.showMessageDialog(null,
+                    "There's a problem in the database.",
+                    "Database Error",
+                    JOptionPane.WARNING_MESSAGE);
     }
 }
 
