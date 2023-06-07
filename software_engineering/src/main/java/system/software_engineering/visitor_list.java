@@ -208,138 +208,136 @@ public class visitor_list extends javax.swing.JFrame {
     Component frame;
     
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        String sql = "SELECT * FROM visitor where date_of_visit = ?";
+                // Query to select records from the visitor table with a specific date of visit
+        String sql = "SELECT * FROM visitor WHERE date_of_visit = ?";
+
+        // Get the selected date from the dateChooser and format it
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dateFormat.format(dateChooser.getDate());
+
         PreparedStatement statement = null;
-        
-        boolean record = false;
-        
-        try{
-          statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-          statement.setString(1,date);
-          ResultSet result = statement.executeQuery();
-          
-          
-          if(result.next()==true){
-                record = true;
-          }else{
-              record = false;
-          }
-          
-        }catch(SQLException e){
+        boolean recordExists = false;
+
+        try {
+            // Prepare the SQL statement
+            statement = sql_connect.db_connect().prepareStatement(sql);
+            statement.setString(1, date);
+
+            // Execute the query
+            ResultSet result = statement.executeQuery();
+
+            // Check if any records exist
+            recordExists = result.next();
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null,
                     "There's a problem in the database.",
                     "Database Error",
                     JOptionPane.WARNING_MESSAGE);
         }
-        
-        if(!record){
+
+        // Check if records exist for the selected date
+        if (!recordExists) {
             JOptionPane.showMessageDialog(frame, "There's no record to export!",
-                       "Export Error",
-                       JOptionPane.ERROR_MESSAGE);
-        }else{
-            
-        JFileChooser filechooser = new JFileChooser();
-        filechooser.setDialogTitle("Save Excel File");
-        filechooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
-       
-       int userSelection = filechooser.showSaveDialog(frame);
-       if(userSelection == JFileChooser.APPROVE_OPTION){
-           String filePath = filechooser.getSelectedFile().getAbsolutePath();
-           if(!filePath.toLowerCase().endsWith(".csv")){
-               filePath += ".csv";
-           }
-           try(FileWriter writer = new FileWriter(filePath)){
-               //Write the excel data
-               writer.append("FIRST NAME");
-               writer.append(",");
-               writer.append("MIDDLE NAME");
-               writer.append(",");
-               writer.append("LAST NAME");
-               writer.append(",");
-               writer.append("SEX");
-               writer.append(",");
-               writer.append("AGE");
-               writer.append(",");
-               writer.append("CONTACT");
-               writer.append(",");
-               writer.append("ADDRESS");
-               writer.append(",");
-               writer.append("DATE OF VISIT");
-               writer.append(",");
-               writer.append("TIME OF VISIT");
-               writer.append(",");
-               writer.append("TIME OUT");
-               writer.append(",");
-               writer.append("RELATIONSHIP");
-               writer.append(",");
-               writer.append("INMATE FIRST NAME");
-               writer.append(",");
-               writer.append("INMATE LAST NAME");
-               writer.append("\n");
-                          
-               
-               
-               
-               
-               try{
-                   statement = (PreparedStatement) sql_connect.db_connect().prepareStatement(sql);
-                   statement.setString(1,date);
-                   ResultSet result = statement.executeQuery();
-                   
-                   while(result.next()){
-                       writer.append(result.getString(2));
-                       writer.append(",");
-                       writer.append(result.getString(3));
-                       writer.append(",");
-                       writer.append(result.getString(4));
-                       writer.append(",");
-                       writer.append(result.getString(5));
-                       writer.append(",");
-                       writer.append(result.getString(6));
-                       writer.append(",");
-                       writer.append(result.getString(7));
-                       writer.append(",");
-                       writer.append(result.getString(8));
-                       writer.append(",");
-                       writer.append(result.getString(9));
-                       writer.append(",");
-                       writer.append(result.getString(10));
-                       writer.append(",");
-                       writer.append(result.getString(11));
-                       writer.append(",");
-                       writer.append(result.getString(12));
-                       writer.append(",");
-                       writer.append(result.getString(13));
-                       writer.append(",");
-                       writer.append(result.getString(14));
-                       writer.append(",");
-                       writer.append("\n");
-                   }
-               }catch(SQLException e){
-                   Logger.getLogger(visitor_list.class.getName()).log(Level.SEVERE, null, e);
-                   JOptionPane.showMessageDialog(frame, "Export error, please try again.",
-                       "Export Error",
-                       JOptionPane.ERROR_MESSAGE);
-               }
-               
-               writer.flush();
-               writer.close();
-               
-               JOptionPane.showMessageDialog(frame, "Excel file saved successfully",
-                       "Export Successful",
-                       JOptionPane.INFORMATION_MESSAGE);
-               
-           } catch (IOException ex) {
-               Logger.getLogger(visitor_list.class.getName()).log(Level.SEVERE, null, ex);
-               JOptionPane.showMessageDialog(frame, "Export error, please try again.",
-                       "Export Error",
-                       JOptionPane.ERROR_MESSAGE);
-           }
-           
-           
-        }}   
+                    "Export Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Open file chooser dialog to select the file path to save the CSV file
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save Excel File");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
+
+            int userSelection = fileChooser.showSaveDialog(frame);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+
+                // Ensure the file path has the .csv extension
+                if (!filePath.toLowerCase().endsWith(".csv")) {
+                    filePath += ".csv";
+                }
+
+                try (FileWriter writer = new FileWriter(filePath)) {
+                    // Write the header row for the CSV file
+                    writer.append("FIRST NAME");
+                    writer.append(",");
+                    writer.append("MIDDLE NAME");
+                    writer.append(",");
+                    writer.append("LAST NAME");
+                    writer.append(",");
+                    writer.append("SEX");
+                    writer.append(",");
+                    writer.append("AGE");
+                    writer.append(",");
+                    writer.append("CONTACT");
+                    writer.append(",");
+                    writer.append("ADDRESS");
+                    writer.append(",");
+                    writer.append("DATE OF VISIT");
+                    writer.append(",");
+                    writer.append("TIME OF VISIT");
+                    writer.append(",");
+                    writer.append("TIME OUT");
+                    writer.append(",");
+                    writer.append("RELATIONSHIP");
+                    writer.append(",");
+                    writer.append("INMATE FIRST NAME");
+                    writer.append(",");
+                    writer.append("INMATE LAST NAME");
+                    writer.append("\n");
+
+                    try {
+                        // Execute the query again to retrieve the records for export
+                        statement.setString(1, date);
+                        ResultSet result = statement.executeQuery();
+
+                        while (result.next()) {
+                            // Write the data rows to the CSV file
+                            writer.append(result.getString(2));
+                            writer.append(",");
+                            writer.append(result.getString(3));
+                            writer.append(",");
+                            writer.append(result.getString(4));
+                            writer.append(",");
+                            writer.append(result.getString(5));
+                            writer.append(",");
+                            writer.append(result.getString(6));
+                            writer.append(",");
+                            writer.append(result.getString(7));
+                            writer.append(",");
+                            writer.append(result.getString(8));
+                            writer.append(",");
+                            writer.append(result.getString(9));
+                            writer.append(",");
+                            writer.append(result.getString(10));
+                            writer.append(",");
+                            writer.append(result.getString(11));
+                            writer.append(",");
+                            writer.append(result.getString(12));
+                            writer.append(",");
+                            writer.append(result.getString(13));
+                            writer.append(",");
+                            writer.append(result.getString(14));
+                            writer.append("\n");
+                        }
+                    } catch (SQLException e) {
+                        Logger.getLogger(visitor_list.class.getName()).log(Level.SEVERE, null, e);
+                        JOptionPane.showMessageDialog(frame, "Export error, please try again.",
+                                "Export Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    writer.flush();
+
+                    JOptionPane.showMessageDialog(frame, "Excel file saved successfully",
+                            "Export Successful",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    Logger.getLogger(visitor_list.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(frame, "Export error, please try again.",
+                            "Export Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }  
     }//GEN-LAST:event_jButton7ActionPerformed
 
     DefaultTableModel tableModel;

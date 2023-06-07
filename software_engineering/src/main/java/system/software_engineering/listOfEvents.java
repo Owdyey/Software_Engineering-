@@ -7,6 +7,8 @@ package system.software_engineering;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.List;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,9 +17,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
@@ -62,6 +66,7 @@ public class listOfEvents extends javax.swing.JFrame {
         btnViewGraph = new javax.swing.JButton();
         yearChoosen = new com.toedter.calendar.JYearChooser();
         btnAddEvent1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -75,7 +80,7 @@ public class listOfEvents extends javax.swing.JFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 120, 140));
 
         jButton6.setBackground(new java.awt.Color(103, 146, 137));
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jButton6.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("back");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +88,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, -1, 30));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 70, 30));
 
         jPanel2.setBackground(new java.awt.Color(255, 250, 202));
 
@@ -109,7 +114,7 @@ public class listOfEvents extends javax.swing.JFrame {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 680, 110));
 
         jButton1.setBackground(new java.awt.Color(103, 146, 137));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("View");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +122,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 90, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 90, 40));
 
         btnRemove.setBackground(new java.awt.Color(103, 146, 137));
         btnRemove.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -128,7 +133,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 450, 130, 40));
+        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 130, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
@@ -167,7 +172,7 @@ public class listOfEvents extends javax.swing.JFrame {
         jPanel1.add(month, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 190, 40));
 
         btnViewGraph.setBackground(new java.awt.Color(103, 146, 137));
-        btnViewGraph.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnViewGraph.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnViewGraph.setForeground(new java.awt.Color(255, 255, 255));
         btnViewGraph.setText("View Graph");
         btnViewGraph.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +180,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnViewGraphActionPerformed(evt);
             }
         });
-        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 160, 120, 40));
+        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 160, 120, 40));
 
         yearChoosen.setBackground(new java.awt.Color(103, 146, 137));
         yearChoosen.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -190,7 +195,18 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnAddEvent1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, 130, 40));
+        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 130, 40));
+
+        jButton2.setBackground(new java.awt.Color(103, 146, 137));
+        jButton2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Export Data");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 120, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -337,6 +353,88 @@ public class listOfEvents extends javax.swing.JFrame {
         String delSQL = "DELETE FROM `system`.`events` WHERE event_id = ?";
     }//GEN-LAST:event_btnRemoveActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            JFileChooser filechooser = new JFileChooser();
+            filechooser.setDialogTitle("Save CSV File");
+            filechooser.setFileFilter(new FileNameExtensionFilter("CSV Files (*.csv)", "csv"));
+
+            String sql = "SELECT events_attended FROM prisoners";
+            String dateSql = "SELECT event_date FROM events WHERE event_title = ?";
+
+            try {
+                PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+
+                Map<String, Integer> valueCountMap = new HashMap<>();
+                while (resultSet.next()) {
+                    String rowData = resultSet.getString("events_attended");
+                    if (rowData != null) {
+                        String[] values = rowData.split(",");
+
+                        // Count the occurrences of each value
+                        for (String value : values) {
+                            value = value.trim();
+                            int count = valueCountMap.getOrDefault(value, 0);
+                            valueCountMap.put(value, count + 1);
+                        }
+                    }
+                }
+
+                int userSelection = filechooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    String filePath = filechooser.getSelectedFile().getAbsolutePath();
+                    if (!filePath.toLowerCase().endsWith(".csv")) {
+                        filePath += ".csv";
+                    }
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        // Write CSV header
+                        writer.append("Event Title");
+                        writer.append(",");
+                        writer.append("Event Date");
+                        writer.append(",");
+                        writer.append("Number of Prisoner who attends");
+                        writer.append("\n");
+
+                        // Write event data
+                        for (Map.Entry<String, Integer> entry : valueCountMap.entrySet()) {
+                            String eventTitle = entry.getKey();
+                            int prisonerCount = entry.getValue();
+
+                            // Retrieve the event date for the current event title
+                            PreparedStatement dateStatement = sql_connect.db_connect().prepareStatement(dateSql);
+                            dateStatement.setString(1, eventTitle);
+                            ResultSet dateResultSet = dateStatement.executeQuery();
+                            String eventDate = ""; // Initialize the event date
+                            if (dateResultSet.next()) {
+                                eventDate = dateResultSet.getString("event_date");
+                            }
+                            dateResultSet.close();
+                            dateStatement.close();
+
+                            writer.append(eventTitle);
+                            writer.append(",");
+                            writer.append(eventDate);
+                            writer.append(",");
+                            writer.append(String.valueOf(prisonerCount));
+                            writer.append("\n");
+                        }
+
+                        writer.flush();
+                        writer.close();
+
+                        JOptionPane.showMessageDialog(null, "CSV file saved successfully", "Export Successful",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Export error, please try again.", "Export Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.print(e);
+            }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -378,6 +476,7 @@ public class listOfEvents extends javax.swing.JFrame {
     private javax.swing.JButton btnViewGraph;
     private javax.swing.JTable eventTable;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
