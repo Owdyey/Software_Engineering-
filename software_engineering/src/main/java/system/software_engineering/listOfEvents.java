@@ -261,17 +261,20 @@ public class listOfEvents extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
+        
     
     private void btnViewGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewGraphActionPerformed
-       String sql = "SELECT events_attended FROM prisoners";
-            try {
-                PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
-                ResultSet resultSet = statement.executeQuery();
+        String sql = "SELECT events_attended FROM prisoners";
+        String dateSql = "SELECT event_date FROM events WHERE event_title = ?";
 
-                Map<String, Integer> valueCountMap = new HashMap<>();
-                while (resultSet.next()) {
-                    String rowData = resultSet.getString("events_attended");
+        try {
+            PreparedStatement statement = sql_connect.db_connect().prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            Map<String, Integer> valueCountMap = new HashMap<>();
+            while (resultSet.next()) {
+                String rowData = resultSet.getString("events_attended");
+                if (rowData != null) {
                     String[] values = rowData.split(",");
 
                     // Count the occurrences of each value
@@ -281,37 +284,49 @@ public class listOfEvents extends javax.swing.JFrame {
                         valueCountMap.put(value, count + 1);
                     }
                 }
-
-                // Create a dataset for the bar graph
-
-
-                DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-                for (Map.Entry<String, Integer> entry : valueCountMap.entrySet()) {
-                    String value = entry.getKey();
-                    int count = entry.getValue();
-                    dataset.addValue(count, "Count", value);
-                }
-
-                // Create the bar chart
-                JFreeChart chart = ChartFactory.createBarChart("Value Counts", "Value", "Count", dataset, PlotOrientation.VERTICAL, false, true, false);
-
-
-                 NumberAxis rangeAxis = (NumberAxis) chart.getCategoryPlot().getRangeAxis();
-                rangeAxis.setRange(0, 20); // Set the desired range
-
-                // Display the chart in a frame
-                ChartFrame frame = new ChartFrame("Event Report", chart);
-                frame.setResizable(false); // Make the frame non-resizable
-
-                frame.setPreferredSize(new Dimension(800, 500));
-                frame.pack();
-                frame.setVisible(true);
-
-            } catch (SQLException e) {
-                System.out.print(e);
             }
-    }//GEN-LAST:event_btnViewGraphActionPerformed
 
+            // Create a dataset for the bar graph
+            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+            for (Map.Entry<String, Integer> entry : valueCountMap.entrySet()) {
+                String value = entry.getKey();
+                int count = entry.getValue();
+                String label = value; // Use the event title as the initial label
+
+                // Retrieve the event date for the current event title
+                PreparedStatement dateStatement = sql_connect.db_connect().prepareStatement(dateSql);
+                dateStatement.setString(1, value);
+                ResultSet dateResultSet = dateStatement.executeQuery();
+                if (dateResultSet.next()) {
+                    String eventDate = dateResultSet.getString("event_date");
+                    label += " (" + eventDate + ")"; // Concatenate the event date to the label
+                }
+                dateResultSet.close();
+                dateStatement.close();
+
+                dataset.addValue(count, "Count", label);
+            }
+
+            // Create the bar chart
+            JFreeChart chart = ChartFactory.createBarChart("Event Report", "Event Name and Date", "Number of Prisoner", dataset, PlotOrientation.VERTICAL, false, true, false);
+
+            NumberAxis rangeAxis = (NumberAxis) chart.getCategoryPlot().getRangeAxis();
+            rangeAxis.setRange(0, 20); // Set the desired range
+
+            // Display the chart in a frame
+            ChartFrame frame = new ChartFrame("Event Report", chart);
+            frame.setResizable(false); // Make the frame non-resizable
+            frame.setPreferredSize(new Dimension(800, 500));
+            frame.pack();
+            frame.setVisible(true);
+
+        } catch (SQLException e) {
+            System.out.print(e);
+        }
+
+    }//GEN-LAST:event_btnViewGraphActionPerformed
+  
+    
     private void btnAddEvent1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEvent1ActionPerformed
        addEvent form = new addEvent();
        form.show();
