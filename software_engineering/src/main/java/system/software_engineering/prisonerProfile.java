@@ -514,16 +514,18 @@ public class prisonerProfile extends javax.swing.JFrame {
                     ResultSet result = statement2.executeQuery();
 
                     while(result.next()){
-                        String events = result.getString("events_attended");
+                       String events = result.getString("events_attended");
 
-                        String[] eventNames = events.split(", ");
+                        if (events != null) {
+                            String[] eventNames = events.split(", ");
 
-                        tableModel = (DefaultTableModel) eventTable.getModel();
-                        tableModel.setRowCount(0);
+                            tableModel = (DefaultTableModel) eventTable.getModel();
+                            tableModel.setRowCount(0);
 
-                        for (String eventName : eventNames) {
-                            Object[] rowData = { eventName };
-                            tableModel.addRow(rowData);
+                            for (String eventName : eventNames) {
+                                Object[] rowData = { eventName };
+                                tableModel.addRow(rowData);
+                            }
                         }
                     }
                 }catch (SQLException e) {
