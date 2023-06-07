@@ -319,95 +319,67 @@ public class prisonerProfile extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        int option = JOptionPane.showConfirmDialog(null,
-            "Confirm adding this to the prisoner.",
-            "Confirmation",
-            JOptionPane.YES_NO_OPTION);
+        int option = JOptionPane.showConfirmDialog(null, "Confirm adding this to the prisoner.", "Confirmation", JOptionPane.YES_NO_OPTION);
 
-    if (option == JOptionPane.YES_OPTION) {
-        String sql = "UPDATE prisoners SET events_attended = ? WHERE prisoner_first_name = ? AND prisoner_surname = ?";
-        String firstName = firstnameTxt.getText();
-        String surname = surnameTxt.getText();
+        if (option == JOptionPane.YES_OPTION) {
+            String sql = "UPDATE prisoners SET events_attended = ? WHERE prisoner_first_name = ? AND prisoner_surname = ?";
+            String firstName = firstnameTxt.getText();
+            String surname = surnameTxt.getText();
 
-        try (Connection connection = sql_connect.db_connect();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+            try (Connection connection = sql_connect.db_connect();
+                 PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            statement.setString(2, firstName);
-            statement.setString(3, surname);
+                statement.setString(2, firstName);
+                statement.setString(3, surname);
 
-            // Retrieve the current value of events_attended column
-            String currentEvents = "";
-            String selectSql = "SELECT events_attended FROM prisoners WHERE prisoner_first_name = ? AND prisoner_surname = ?";
-            PreparedStatement selectStatement = connection.prepareStatement(selectSql);
-            selectStatement.setString(1, firstName);
-            selectStatement.setString(2, surname);
-            ResultSet result = selectStatement.executeQuery();
+                // Retrieve the current value of events_attended column
+                String currentEvents = "";
+                String selectSql = "SELECT events_attended FROM prisoners WHERE prisoner_first_name = ? AND prisoner_surname = ?";
+                PreparedStatement selectStatement = connection.prepareStatement(selectSql);
+                selectStatement.setString(1, firstName);
+                selectStatement.setString(2, surname);
+                ResultSet result = selectStatement.executeQuery();
 
-            if (result.next()) {
-                currentEvents = result.getString("events_attended");
-            }
-
-            if (currentEvents == null) {
-                statement.setString(1, (String) eventList.getSelectedItem());
-                int rowsAffected = statement.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null,
-                            "Event added to the prisoner successfully.",
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
-
-                    eventList.setEnabled(false);
-                    addBtn.setEnabled(false);
-
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Prisoner not found or no updates made.",
-                            "Warning",
-                            JOptionPane.WARNING_MESSAGE);
+                if (result.next()) {
+                    currentEvents = result.getString("events_attended");
                 }
-            } else if (currentEvents.contains((String) eventList.getSelectedItem())) {
-                JOptionPane.showMessageDialog(null,
-                        "Event already in the list.",
-                        "Error",
-                        JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                String newEvents = currentEvents + ", " + (String) eventList.getSelectedItem();
-                statement.setString(1, newEvents);
-                int rowsAffected = statement.executeUpdate();
 
-                if (rowsAffected > 0) {
-                    JOptionPane.showMessageDialog(null,
-                            "Event added to the prisoner successfully.",
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE);
+                if (currentEvents == null) {
+                    statement.setString(1, (String) eventList.getSelectedItem());
+                    int rowsAffected = statement.executeUpdate();
 
-                    eventList.setEnabled(false);
-                    addBtn.setEnabled(false);
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Event added to the prisoner successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
 
+                        eventList.setEnabled(false);
+                        addBtn.setEnabled(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Prisoner not found or no updates made.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                } else if (currentEvents.contains((String) eventList.getSelectedItem())) {
+                    JOptionPane.showMessageDialog(null, "Event already in the list.", "Error", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null,
-                            "Prisoner not found or no updates made.",
-                            "Warning",
-                            JOptionPane.WARNING_MESSAGE);
-                }
-            }
+                    String newEvents = currentEvents + ", " + (String) eventList.getSelectedItem();
+                    statement.setString(1, newEvents);
+                    int rowsAffected = statement.executeUpdate();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,
-                    "There's an error in the database!",
-                    "Database Error",
-                    JOptionPane.ERROR_MESSAGE);
-            System.out.println(e);
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Event added to the prisoner successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        eventList.setEnabled(false);
+                        addBtn.setEnabled(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Prisoner not found or no updates made.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "There's an error in the database!", "Database Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Adding of event to the prisoner was cancelled.", "Cancelled", JOptionPane.WARNING_MESSAGE);
         }
 
-    } else {
-        JOptionPane.showMessageDialog(null,
-                "Adding of event to the prisoner was cancelled.",
-                "Cancelled",
-                JOptionPane.WARNING_MESSAGE);
-    }   
-        
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

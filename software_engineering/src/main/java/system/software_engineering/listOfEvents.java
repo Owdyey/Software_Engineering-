@@ -124,7 +124,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 90, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 90, 40));
 
         btnRemove.setBackground(new java.awt.Color(103, 146, 137));
         btnRemove.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -135,7 +135,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnRemoveActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, 130, 40));
+        jPanel1.add(btnRemove, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 450, 120, 40));
 
         eventTable.setBackground(new java.awt.Color(255, 250, 202));
         eventTable.setForeground(new java.awt.Color(0, 0, 0));
@@ -182,7 +182,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnViewGraphActionPerformed(evt);
             }
         });
-        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 120, 40));
+        jPanel1.add(btnViewGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 120, 40));
 
         yearChoosen.setBackground(new java.awt.Color(103, 146, 137));
         yearChoosen.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -197,7 +197,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 btnAddEvent1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 450, 130, 40));
+        jPanel1.add(btnAddEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 120, 40));
 
         jButton2.setBackground(new java.awt.Color(103, 146, 137));
         jButton2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -219,7 +219,7 @@ public class listOfEvents extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 100, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 100, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -377,47 +377,47 @@ public class listOfEvents extends javax.swing.JFrame {
         model.removeRow(selectedRowIndex);
 
         System.out.println(rowData[selectedRowIndex]);
-    
-String deleteSql = "DELETE FROM events WHERE event_id = ?";
-String selectEventIdSql = "SELECT event_id FROM events WHERE event_title = ?";
 
-try {
-    PreparedStatement selectStatement = sql_connect.db_connect().prepareStatement(selectEventIdSql);
-    selectStatement.setString(1, (String) rowData[selectedRowIndex]); // Assuming the second column represents the event title as a String
-    
-    
-    // Execute the select statement to retrieve the event ID
-    ResultSet resultSet = selectStatement.executeQuery();
-    int eventId = 0;
-    if (resultSet.next()) {
-        eventId = resultSet.getInt("event_id");
-    }
-    resultSet.close();
-    selectStatement.close();
+        String deleteSql = "DELETE FROM events WHERE event_id = ?";
+        String selectEventIdSql = "SELECT event_id FROM events WHERE event_title = ?";
 
-    PreparedStatement deleteStatement = sql_connect.db_connect().prepareStatement(deleteSql);
-    deleteStatement.setInt(1, eventId); // Assuming the event_id column is of type INT
+        try {
+            PreparedStatement selectStatement = sql_connect.db_connect().prepareStatement(selectEventIdSql);
+            selectStatement.setString(1, (String) rowData[selectedRowIndex]); // Assuming the second column represents the event title as a String
 
-    // Execute the delete statement
-    int rowsAffected = deleteStatement.executeUpdate();
 
-    if (rowsAffected > 0) {
-        // Row deleted successfully from the database
-        JOptionPane.showMessageDialog(frame, "Event Deleted Successfully!");
-    }
+            // Execute the select statement to retrieve the event ID
+            ResultSet resultSet = selectStatement.executeQuery();
+            int eventId = 0;
+            if (resultSet.next()) {
+                eventId = resultSet.getInt("event_id");
+            }
+            resultSet.close();
+            selectStatement.close();
 
-    deleteStatement.close();
-} catch (SQLException e) {
-    // Handle any errors that may occur during the delete operation
-    e.printStackTrace();
-} catch (NumberFormatException e) {
-    // Handle any errors that may occur if the ID value is not a valid integer
-    e.printStackTrace();
-}
-    }catch(ArrayIndexOutOfBoundsException ex){
+            PreparedStatement deleteStatement = sql_connect.db_connect().prepareStatement(deleteSql);
+            deleteStatement.setInt(1, eventId); // Assuming the event_id column is of type INT
 
-            JOptionPane.showMessageDialog(null, "Please select event first");
+            // Execute the delete statement
+            int rowsAffected = deleteStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                // Row deleted successfully from the database
+                JOptionPane.showMessageDialog(frame, "Event Deleted Successfully!");
+            }
+
+            deleteStatement.close();
+        } catch (SQLException e) {
+            // Handle any errors that may occur during the delete operation
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            // Handle any errors that may occur if the ID value is not a valid integer
+            e.printStackTrace();
         }
+            }catch(ArrayIndexOutOfBoundsException ex){
+
+                    JOptionPane.showMessageDialog(null, "Please select event first");
+                }
 
 
     }//GEN-LAST:event_btnRemoveActionPerformed
